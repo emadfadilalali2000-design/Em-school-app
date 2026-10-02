@@ -1,0 +1,2850 @@
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مستقبلهم | منصة المتابعة والرقابة المدرسية الذكية — عماد العلي</title>
+<meta name="description" content="تطبيق مدرسي متكامل بثلاث واجهات: ولي الأمر، المعلم، والإدارة. متابعة أكاديمية وسلوكية لحظية للمرحلة الابتدائية تحت اسم مستقبلهم.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { taj: ['Tajawal','sans-serif'], cairo: ['Cairo','sans-serif'] },
+      colors: {
+        brand: {50:'#eefdf8',100:'#d9fbe9',200:'#b5f5d3',300:'#7deab6',400:'#40d795',500:'#1abc7d',600:'#0fa968',700:'#0f8756',800:'#126c48',900:'#11583d',950:'#04281c'},
+        ink: {900:'#0b1526',800:'#132040',700:'#1e2f5a'},
+        gold: '#f59e0b'
+      },
+      boxShadow: {
+        soft: '0 10px 40px -10px rgba(0,0,0,.12)',
+        card: '0 6px 24px -6px rgba(11,21,38,.12)',
+        lift: '0 26px 60px -22px rgba(11,21,38,.35)'
+      }
+    }
+  }
+}
+</script>
+<style>
+*{font-family:'Tajawal','Cairo',sans-serif}
+html{scroll-behavior:smooth}
+body{background:#f6f9fb;color:#0b1526;overflow-x:hidden}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track{background:#eef2f6}
+::-webkit-scrollbar-thumb{background:linear-gradient(#1abc7d,#0f8756);border-radius:99px}
+
+/* ---------- brand helpers ---------- */
+.grad-text{background:linear-gradient(120deg,#0f8756,#0ea5a0 50%,#4f46e5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.grad-bg{background:linear-gradient(135deg,#04281c 0%,#0f8756 42%,#0ea5a0 78%,#4f46e5 100%)}
+.grad-btn{background:linear-gradient(135deg,#10b981,#0ea5a0 55%,#4f46e5);transition:transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s}
+.grad-btn:hover{transform:translateY(-3px);box-shadow:0 18px 38px -12px rgba(16,185,129,.55)}
+.grad-btn:active{transform:translateY(0) scale(.98)}
+.glass{background:rgba(255,255,255,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.pattern{background-image:radial-gradient(rgba(255,255,255,.18) 1px,transparent 1px);background-size:22px 22px}
+.pattern-dark{background-image:radial-gradient(rgba(0,0,0,.06) 1px,transparent 1px);background-size:22px 22px}
+
+/* ---------- motion language : "sync & signal" ---------- */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.float-anim{animation:float 6s ease-in-out infinite}
+@keyframes sweep{0%{transform:translateX(-120%) skewX(-18deg)}55%,100%{transform:translateX(220%) skewX(-18deg)}}
+.sweep{position:relative;overflow:hidden}
+.sweep::after{content:'';position:absolute;top:0;bottom:0;width:45%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.38),transparent);transform:translateX(-120%) skewX(-18deg);pointer-events:none}
+.sweep:hover::after{animation:sweep 1.1s cubic-bezier(.3,.7,.3,1)}
+@keyframes ring{0%{transform:scale(.88);opacity:.9}100%{transform:scale(1.3);opacity:0}}
+.pulse-ring::after{content:'';position:absolute;inset:-6px;border-radius:9999px;border:2px solid #10b981;animation:ring 2s ease-out infinite}
+@keyframes wv{0%,100%{height:7px}50%{height:19px}}
+.wifi-wave span{display:inline-block;width:4px;border-radius:99px;background:currentColor;animation:wv 1.2s ease-in-out infinite}
+.wifi-wave span:nth-child(2){animation-delay:.15s}
+.wifi-wave span:nth-child(3){animation-delay:.3s}
+.wifi-wave span:nth-child(4){animation-delay:.45s}
+@keyframes marquee{to{transform:translateX(50%)}}
+.marquee-track{display:flex;gap:2.6rem;width:max-content;animation:marquee 32s linear infinite}
+.marquee-mask{-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .85s cubic-bezier(.2,.7,.3,1),transform .85s cubic-bezier(.2,.7,.3,1)}
+.reveal.vis{opacity:1;transform:none}
+.reveal-x{opacity:0;transform:translateX(34px);transition:opacity .9s cubic-bezier(.2,.7,.3,1),transform .9s cubic-bezier(.2,.7,.3,1)}
+.reveal-x.vis{opacity:1;transform:none}
+@keyframes slideNotif{0%{transform:translateY(-130%);opacity:0}12%,74%{transform:translateY(0);opacity:1}86%,100%{transform:translateY(-130%);opacity:0}}
+.mini-notif{animation:slideNotif 5.4s cubic-bezier(.2,.8,.3,1) infinite;opacity:0}
+@keyframes drawLine{to{stroke-dashoffset:0}}
+.path-draw{stroke-dasharray:600;stroke-dashoffset:600;animation:drawLine 2.4s cubic-bezier(.3,.7,.3,1) forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.toast-in{animation:toastIn .55s cubic-bezier(.2,.9,.3,1.15)}
+@keyframes toastIn{from{transform:translateX(-120%) scale(.92);opacity:0}to{transform:none;opacity:1}}
+@keyframes blink{50%{opacity:.45}}
+.dot-live{width:9px;height:9px;border-radius:99px;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.2);animation:blink 1.6s infinite}
+@keyframes shimmer{to{background-position:-200% 0}}
+.shimmer{background:linear-gradient(90deg,#e2e8f0 25%,#f8fafc 50%,#e2e8f0 75%);background-size:200% 100%;animation:shimmer 1.6s infinite}
+@keyframes popIn{0%{transform:scale(.94);opacity:0}100%{transform:scale(1);opacity:1}}
+.pop-in{animation:popIn .45s cubic-bezier(.2,.9,.3,1.1)}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.35)}50%{box-shadow:0 0 0 14px rgba(16,185,129,0)}}
+.glow-pulse{animation:glowPulse 2.6s ease-out infinite}
+
+/* ---------- app ---------- */
+.phone{width:300px;height:614px;border-radius:44px;background:#0b1526;padding:12px;box-shadow:0 34px 80px -22px rgba(0,0,0,.55),inset 0 0 0 2px rgba(255,255,255,.15)}
+.phone-screen{background:#f8fafc;border-radius:34px;height:100%;overflow:hidden;position:relative}
+.notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:110px;height:26px;background:#0b1526;border-radius:99px;z-index:20}
+.card-hover{transition:transform .4s cubic-bezier(.2,.8,.3,1),box-shadow .4s}
+.card-hover:hover{transform:translateY(-8px);box-shadow:0 26px 55px -18px rgba(11,21,38,.25)}
+.side-link{transition:.25s;border-radius:14px}
+.side-link.active{background:linear-gradient(135deg,#10b981,#0ea5a0);color:#fff!important;box-shadow:0 12px 26px -10px rgba(16,185,129,.65)}
+.side-link:not(.active):hover{background:#eefdf8;color:#0f8756}
+.view-section{display:none;animation:fadeUp .5s ease}
+.view-section.active{display:block}
+.tab-btn.active{background:#0b1526;color:#fff}
+.leader-row:nth-child(1){background:linear-gradient(90deg,#fef9c3,#fff)}
+.kpi-anim{transition:transform .35s cubic-bezier(.2,.8,.3,1),box-shadow .35s}
+.kpi-anim:hover{transform:translateY(-6px);box-shadow:0 22px 45px -18px rgba(11,21,38,.22)}
+.faq-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.8,.3,1)}
+.faq-item.open .faq-body{max-height:260px}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-item.open{border-color:#10b981;box-shadow:0 18px 40px -22px rgba(16,185,129,.5)}
+.sev-high{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.sev-med{background:#fffbeb;color:#d97706;border:1px solid #fde68a}
+.sev-low{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
+.modal-bg{background:rgba(11,21,38,.62);backdrop-filter:blur(7px)}
+.chat-bubble-teacher{background:linear-gradient(135deg,#0b1526,#1e2f5a);color:#fff;border-radius:18px 18px 18px 4px}
+.chat-bubble-parent{background:#fff;border:1px solid #e2e8f0;border-radius:18px 18px 4px 18px}
+.att-day{transition:.22s cubic-bezier(.2,.8,.3,1);cursor:pointer}
+.att-day:hover{transform:scale(1.07)}
+.av1{background:linear-gradient(135deg,#34d399,#0d9488)}
+.av2{background:linear-gradient(135deg,#818cf8,#4338ca)}
+.av3{background:linear-gradient(135deg,#fbbf24,#ea580c)}
+.av4{background:linear-gradient(135deg,#fb7185,#be123c)}
+.av5{background:linear-gradient(135deg,#38bdf8,#1d4ed8)}
+.av6{background:linear-gradient(135deg,#a3e635,#16a34a)}
+.av7{background:linear-gradient(135deg,#e879f9,#7e22ce)}
+.av8{background:linear-gradient(135deg,#22d3ee,#0f766e)}
+.av9{background:linear-gradient(135deg,#fb923c,#b91c1c)}
+.av10{background:linear-gradient(135deg,#60a5fa,#3730a3)}
+.magnet{transition:transform .25s cubic-bezier(.2,.8,.3,1)}
+input,select,textarea{outline:none}
+input:focus,select:focus,textarea:focus{border-color:#10b981!important;box-shadow:0 0 0 3px rgba(16,185,129,.16)}
+.stagger>*{opacity:0;transform:translateY(22px)}
+.stagger.vis>*{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.2,.8,.3,1),transform .7s cubic-bezier(.2,.8,.3,1)}
+.stagger.vis>*:nth-child(1){transition-delay:.02s}
+.stagger.vis>*:nth-child(2){transition-delay:.09s}
+.stagger.vis>*:nth-child(3){transition-delay:.16s}
+.stagger.vis>*:nth-child(4){transition-delay:.23s}
+.stagger.vis>*:nth-child(5){transition-delay:.3s}
+.stagger.vis>*:nth-child(6){transition-delay:.37s}
+@media print{.no-print{display:none!important}#printReport{display:block!important}#app{display:block!important}}
+#printReport{display:none}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.15s!important}
+  .reveal,.reveal-x{opacity:1!important;transform:none!important}
+  .stagger>*{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="toastContainer" class="fixed bottom-6 left-6 z-[200] flex flex-col gap-3 max-w-sm w-[calc(100%-3rem)] sm:w-96 no-print"></div>
+
+<!-- ============================= LANDING ============================= -->
+<div id="landing">
+
+  <!-- announcement -->
+  <div class="grad-bg text-white text-center py-2.5 px-4 text-[13px] font-bold relative overflow-hidden">
+    <div class="absolute inset-0 pattern"></div>
+    <div class="absolute inset-0 opacity-30" style="background:radial-gradient(600px 120px at 20% 50%,rgba(255,255,255,.35),transparent)"></div>
+    <span class="relative">إطلاق النسخة التجريبية للمرحلة الابتدائية — اربط مدرستك بأولياء الأمور لحظياً عبر الواي فاي وبيانات الهاتف
+      <a href="#demoCTA" class="underline decoration-wavy underline-offset-4 ms-2 hover:text-brand-100 transition">جرّب العرض الحي</a>
+    </span>
+  </div>
+
+  <!-- nav -->
+  <nav class="sticky top-0 z-50 glass border-b border-slate-200/70">
+    <div class="max-w-7xl mx-auto px-5 py-3.5 flex items-center justify-between gap-4">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-2xl grad-btn grid place-items-center text-white text-xl shadow-lg sweep">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div>
+          <div class="font-black text-xl leading-none">مستقبلهم <span class="text-[9px] bg-brand-500 text-white px-2 py-0.5 rounded-full align-middle">SMART</span></div>
+          <div class="text-[11px] text-slate-500 font-bold">منصة عماد العلي للرقابة المدرسية الذكية</div>
+        </div>
+      </a>
+      <div class="hidden lg:flex items-center gap-7 font-bold text-slate-600 text-[15px]">
+        <a href="#features" class="hover:text-brand-600 transition relative after:absolute after:bottom-[-6px] after:right-0 after:h-[2px] after:w-0 after:bg-brand-500 after:transition-all hover:after:w-full">المنظومة</a>
+        <a href="#how" class="hover:text-brand-600 transition relative after:absolute after:bottom-[-6px] after:right-0 after:h-[2px] after:w-0 after:bg-brand-500 after:transition-all hover:after:w-full">كيف يعمل؟</a>
+        <a href="#compare" class="hover:text-brand-600 transition relative after:absolute after:bottom-[-6px] after:right-0 after:h-[2px] after:w-0 after:bg-brand-500 after:transition-all hover:after:w-full">قبل وبعد</a>
+        <a href="#docs" class="hover:text-brand-600 transition relative after:absolute after:bottom-[-6px] after:right-0 after:h-[2px] after:w-0 after:bg-brand-500 after:transition-all hover:after:w-full">وثيقة المشروع</a>
+        <a href="#faq" class="hover:text-brand-600 transition relative after:absolute after:bottom-[-6px] after:right-0 after:h-[2px] after:w-0 after:bg-brand-500 after:transition-all hover:after:w-full">الأسئلة</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="enterApp('parent')" class="hidden sm:inline-flex px-4 py-2.5 rounded-xl font-bold text-sm border-2 border-slate-200 hover:border-brand-500 hover:text-brand-700 transition magnet">بوابة ولي الأمر</button>
+        <button onclick="enterApp('teacher')" class="grad-btn text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg magnet">
+          <i class="fa-solid fa-bolt ms-1"></i> العرض التفاعلي
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- hero -->
+  <header class="relative overflow-hidden" id="hero">
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-50 via-white to-white"></div>
+    <div class="absolute -top-32 -left-24 w-[520px] h-[520px] bg-brand-200/40 blur-[110px] rounded-full"></div>
+    <div class="absolute top-24 -right-32 w-[520px] h-[520px] bg-indigo-200/40 blur-[110px] rounded-full"></div>
+
+    <div class="max-w-7xl mx-auto px-5 pt-12 pb-16 grid lg:grid-cols-2 gap-12 items-center relative">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-white border border-brand-200 rounded-full px-4 py-1.5 text-[13px] font-bold text-brand-700 shadow-sm mb-5 reveal">
+          <span class="dot-live"></span>
+          متصل الآن — مزامنة فورية عبر Wi-Fi وبيانات الهاتف
+          <span class="wifi-wave flex items-end gap-[3px] h-5 text-brand-500"><span></span><span></span><span></span><span></span></span>
+        </div>
+
+        <h1 class="text-[2.35rem] sm:text-5xl lg:text-[3.65rem] font-black leading-[1.18] reveal" style="transition-delay:.08s">
+          جسرٌ رقمي يربط <span class="grad-text">المدرسة بالبيت</span> لحظة بلحظة
+        </h1>
+
+        <p class="mt-5 text-slate-600 text-lg leading-relaxed max-w-xl reveal" style="transition-delay:.16s">
+          تطبيق <b>«مستقبلهم»</b> من إعداد <b class="text-brand-700">عماد العلي</b> — منظومة ذكية متكاملة للمرحلة الابتدائية:
+          سجل علامات وتقييم يومي، لوحة سلوك وملاحظات فورية، رصد للتجاوزات، ومؤشر أداء بياني — تصلك التحديثات على هاتفك
+          <b>بمجرد اتصالك بالإنترنت</b> من أي مكان.
+        </p>
+
+        <div class="mt-7 flex flex-wrap gap-3 reveal" style="transition-delay:.24s">
+          <button onclick="enterApp('teacher')" class="grad-btn text-white px-7 py-3.5 rounded-2xl font-black shadow-xl magnet">
+            <i class="fa-solid fa-play ms-2"></i> جرّب التطبيق مباشرة
+          </button>
+          <a href="#features" class="px-7 py-3.5 rounded-2xl font-black border-2 border-slate-200 bg-white hover:border-brand-400 hover:shadow-lg transition magnet">
+            استكشف المنظومة
+          </a>
+        </div>
+
+        <div class="mt-8 grid grid-cols-3 gap-4 max-w-md stagger reveal">
+          <div class="bg-white rounded-2xl p-3 text-center shadow-card border">
+            <div class="text-2xl font-black text-brand-600"><span class="counter" data-target="98">0</span>%</div>
+            <div class="text-[11px] font-bold text-slate-500">رضا أولياء الأمور</div>
+          </div>
+          <div class="bg-white rounded-2xl p-3 text-center shadow-card border">
+            <div class="text-2xl font-black text-indigo-600"><span class="counter" data-target="12">0</span>ث</div>
+            <div class="text-[11px] font-bold text-slate-500">زمن وصول الإشعار</div>
+          </div>
+          <div class="bg-white rounded-2xl p-3 text-center shadow-card border">
+            <div class="text-2xl font-black text-amber-500"><span class="counter" data-target="40">0</span>+</div>
+            <div class="text-[11px] font-bold text-slate-500">مدرسة تجريبية</div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] font-bold text-slate-500 reveal" style="transition-delay:.3s">
+          <span><i class="fa-solid fa-wifi text-brand-500 ms-1"></i> Wi-Fi</span>
+          <span><i class="fa-solid fa-signal text-brand-500 ms-1"></i> 4G / 5G</span>
+          <span><i class="fa-solid fa-bell text-brand-500 ms-1"></i> إشعارات فورية</span>
+          <span><i class="fa-solid fa-shield-halved text-brand-500 ms-1"></i> تشفير كامل</span>
+        </div>
+      </div>
+
+      <!-- phone mockup -->
+      <div class="flex justify-center relative reveal-x">
+        <div class="absolute inset-0 grid place-items-center">
+          <div class="w-[420px] h-[420px] bg-gradient-to-tr from-brand-300/45 to-indigo-300/45 blur-[80px] rounded-full"></div>
+        </div>
+
+        <div class="phone float-anim relative z-10">
+          <div class="notch"></div>
+          <div class="phone-screen">
+            <div class="grad-bg text-white p-4 pt-10 pattern">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 bg-white/20 rounded-xl grid place-items-center"><i class="fa-solid fa-graduation-cap text-sm"></i></div>
+                  <div>
+                    <div class="font-black text-sm leading-none">مستقبلهم</div>
+                    <div class="text-[9px] text-white/70">عماد العلي</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-1 text-[10px] bg-white/20 px-2 py-1 rounded-full">
+                  <span class="w-2 h-2 bg-green-300 rounded-full animate-pulse"></span> متصل
+                </div>
+              </div>
+              <div class="mt-3 bg-white/15 rounded-2xl p-3">
+                <div class="text-[11px] opacity-80">مرحباً أم أحمد 👋</div>
+                <div class="font-black text-sm">أحمد حصل على 10/10 في الرياضيات!</div>
+                <div class="mt-2 h-2 bg-white/20 rounded-full overflow-hidden">
+                  <div class="h-full w-[92%] bg-gradient-to-l from-yellow-300 to-green-300 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 space-y-2.5 relative">
+              <div id="miniNotifArea" class="absolute top-2 right-2 left-2 z-10 space-y-2"></div>
+              <div class="grid grid-cols-2 gap-2.5 mt-1">
+                <div class="bg-white rounded-2xl p-3 shadow border text-center">
+                  <div class="text-brand-600 text-xl"><i class="fa-solid fa-star"></i></div>
+                  <div class="font-black text-2xl">95</div>
+                  <div class="text-[10px] font-bold text-slate-500">نقاط السلوك</div>
+                </div>
+                <div class="bg-white rounded-2xl p-3 shadow border text-center">
+                  <div class="text-indigo-600 text-xl"><i class="fa-solid fa-chart-line"></i></div>
+                  <div class="font-black text-2xl">92%</div>
+                  <div class="text-[10px] font-bold text-slate-500">المعدل العام</div>
+                </div>
+              </div>
+              <div class="bg-white rounded-2xl p-3 shadow border">
+                <div class="font-black text-[12px] mb-2">اليوم الدراسي — الثلاثاء</div>
+                <div class="space-y-1.5 text-[11px] font-bold">
+                  <div class="flex justify-between bg-green-50 p-2 rounded-xl"><span><i class="fa-solid fa-circle-check text-green-600 ms-1"></i>الحضور 7:28 ص</span><span class="text-green-600">حاضر</span></div>
+                  <div class="flex justify-between bg-amber-50 p-2 rounded-xl"><span><i class="fa-solid fa-star text-amber-500 ms-1"></i>مشاركة متميزة — علوم</span><span class="text-amber-600">+5</span></div>
+                  <div class="flex justify-between bg-indigo-50 p-2 rounded-xl"><span><i class="fa-solid fa-pen text-indigo-500 ms-1"></i>واجب الرياضيات ص 42</span><span class="text-indigo-600">جديد</span></div>
+                </div>
+              </div>
+              <div class="grid grid-cols-4 gap-1 text-center text-[9px] font-black text-slate-500 bg-white rounded-2xl p-2 shadow border">
+                <div><i class="fa-solid fa-house text-brand-600 text-sm"></i><div>الرئيسية</div></div>
+                <div><i class="fa-solid fa-book-open text-sm"></i><div>العلامات</div></div>
+                <div><i class="fa-solid fa-heart text-sm"></i><div>السلوك</div></div>
+                <div><i class="fa-solid fa-message text-sm"></i><div>الرسائل</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- floating cards -->
+        <div class="hidden md:block absolute top-10 -right-2 z-20 bg-white rounded-2xl shadow-soft border p-3 float-anim parallax" data-depth="14" style="animation-delay:.8s">
+          <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-xl bg-green-100 grid place-items-center text-green-600"><i class="fa-solid fa-check"></i></div>
+            <div>
+              <div class="font-black text-[12px]">تم رصد الحضور</div>
+              <div class="text-[10px] text-slate-500">الثالث (أ) — 32 طالب</div>
+            </div>
+          </div>
+        </div>
+        <div class="hidden md:block absolute bottom-16 -left-2 z-20 bg-white rounded-2xl shadow-soft border p-3 float-anim parallax" data-depth="-16" style="animation-delay:1.6s">
+          <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-xl bg-amber-100 grid place-items-center text-amber-600"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div>
+              <div class="font-black text-[12px]">تنبيه سلوكي</div>
+              <div class="text-[10px] text-slate-500">وصل لولي الأمر فوراً</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- marquee -->
+    <div class="border-y bg-white/70 py-3 overflow-hidden marquee-mask">
+      <div class="marquee-track text-[13px] font-black text-slate-400">
+        <span><i class="fa-solid fa-school ms-1 text-brand-400"></i> مدارس الرياض الأهلية</span>
+        <span><i class="fa-solid fa-school ms-1 text-brand-400"></i> ابتدائية النخبة النموذجية</span>
+        <span><i class="fa-solid fa-school ms-1 text-brand-400"></i> مدارس الفرسان العالمية</span>
+        <span><i class="fa-solid fa-school ms-1 text-brand-400"></i> ابتدائية المستقبل الجديد</span>
+        <span><i class="fa-solid fa-school ms-1 text-brand-400"></i> مدارس المعرفة الحديثة</span>
+        <span><i class="fa-solid fa-school ms-1 text-brand-400"></i> مدارس الرياض الأهلية</span>
+        <span><i class="fa-solid fa-school ms-1 text-brand-400"></i> ابتدائية النخبة النموذجية</span>
+        <span><i class="fa-solid fa-school ms-1 text-brand-400"></i> مدارس الفرسان العالمية</span>
+        <span><i class="fa-solid fa-school ms-1 text-brand-400"></i> ابتدائية المستقبل الجديد</span>
+        <span><i class="fa-solid fa-school ms-1 text-brand-400"></i> مدارس المعرفة الحديثة</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- problem / goal -->
+  <section class="max-w-7xl mx-auto px-5 py-16">
+    <div class="grid lg:grid-cols-3 gap-6">
+      <div class="reveal lg:col-span-1 grad-bg rounded-3xl p-8 text-white relative overflow-hidden card-hover">
+        <div class="absolute inset-0 pattern"></div>
+        <div class="relative">
+          <div class="text-sm font-bold bg-white/20 inline-block px-3 py-1 rounded-full mb-4"><i class="fa-solid fa-bullseye ms-1"></i> الهدف العام</div>
+          <h3 class="text-2xl font-black leading-snug">بيئة رقابية وتوجيهية مشتركة بين المدرسة والمنزل</h3>
+          <p class="mt-3 text-white/85 leading-relaxed text-[15px]">
+            إحاطة أولياء الأمور بكافة تفاصيل اليوم الدراسي عبر تحديثات فورية تصل للهاتف بمجرد الاتصال بالإنترنت — لتقويم السلوك وتطوير المستوى أولاً بأول ومن أي مكان.
+          </p>
+          <button onclick="enterApp('admin')" class="mt-6 bg-white text-slate-900 px-6 py-3 rounded-xl font-black w-full hover:bg-brand-50 transition magnet">
+            <i class="fa-solid fa-shield-halved ms-1 text-brand-600"></i> شاهد لوحة الإدارة
+          </button>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2 grid sm:grid-cols-2 gap-6 stagger reveal">
+        <div class="bg-white rounded-3xl p-6 border shadow-card card-hover">
+          <div class="w-12 h-12 rounded-2xl bg-red-100 text-red-600 grid place-items-center text-xl mb-4"><i class="fa-solid fa-phone-slash"></i></div>
+          <h4 class="font-black text-lg">المشكلة: فجوة التواصل</h4>
+          <p class="text-slate-500 text-sm mt-2 leading-relaxed">يكتشف الأهل تراجع الأبناء متأخراً (نهاية الفصل)، وملاحظات المعلم تضيع في الدفاتر الورقية، ولا توجد متابعة سلوكية لحظية.</p>
+        </div>
+        <div class="bg-white rounded-3xl p-6 border shadow-card card-hover">
+          <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-600 grid place-items-center text-xl mb-4"><i class="fa-solid fa-tower-broadcast"></i></div>
+          <h4 class="font-black text-lg">الحل: حلقة وصل فورية</h4>
+          <p class="text-slate-500 text-sm mt-2 leading-relaxed">شبكة بيانات الهاتف والواي فاي تنقل كل علامة وملاحظة وحضور إلى هاتف ولي الأمر خلال ثوانٍ مع تحليل ذكي وتوصيات.</p>
+        </div>
+        <div class="bg-white rounded-3xl p-6 border shadow-card card-hover">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-600 grid place-items-center text-xl mb-4"><i class="fa-solid fa-children"></i></div>
+          <h4 class="font-black text-lg">التركيز: المرحلة الابتدائية</h4>
+          <p class="text-slate-500 text-sm mt-2 leading-relaxed">مرحلة التأسيس السلوكي والأكاديمي. نظام نقاط تحفيزي، نجوم يومية، وشارات تشجع الطفل وتشرك الأسرة في التقويم.</p>
+        </div>
+        <div class="bg-white rounded-3xl p-6 border shadow-card card-hover">
+          <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 grid place-items-center text-xl mb-4"><i class="fa-solid fa-location-dot"></i></div>
+          <h4 class="font-black text-lg">من أي مكان</h4>
+          <p class="text-slate-500 text-sm mt-2 leading-relaxed">الأب في العمل، الأم في المنزل — الجميع يتابع نفس اللوحة الحية: الحضور، الدرجات، السلوك، والواجبات بتحديث لحظي.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- features -->
+  <section id="features" class="bg-ink-900 text-white py-20 relative overflow-hidden">
+    <div class="absolute inset-0 pattern opacity-40"></div>
+    <div class="absolute -top-24 left-1/3 w-[520px] h-[320px] bg-brand-500/20 blur-[100px] rounded-full"></div>
+    <div class="max-w-7xl mx-auto px-5 relative">
+      <div class="text-center max-w-2xl mx-auto reveal">
+        <div class="text-brand-300 font-black text-sm"><i class="fa-solid fa-puzzle-piece ms-1"></i> المنظومة المتكاملة — 4 وحدات ذكية</div>
+        <h2 class="text-3xl sm:text-4xl font-black mt-3">كل ما يحتاجه الأهل والمعلم والإدارة في مكان واحد</h2>
+        <p class="text-white/60 mt-3">صُممت الوحدات الأربع لتعمل معاً كمنظومة رقابية وتوجيهية متكاملة.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5 mt-12 stagger reveal">
+        <div class="bg-white/10 rounded-3xl p-6 border border-white/15 card-hover group">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 grid place-items-center text-2xl shadow-lg group-hover:scale-110 transition"><i class="fa-solid fa-book-open-reader"></i></div>
+          <div class="text-[11px] font-black text-emerald-300 mt-4">الوحدة 01</div>
+          <h3 class="font-black text-xl mt-1">سجل العلامات والتقييم اليومي</h3>
+          <p class="text-white/65 text-sm mt-2 leading-relaxed">رصد فوري للدرجات والاختبارات القصيرة والواجبات مع متوسط متحرك وتنبيه عند أي تراجع.</p>
+          <ul class="mt-4 space-y-2 text-[13px] font-bold text-white/80">
+            <li><i class="fa-solid fa-check text-emerald-400 ms-1"></i> إدخال الدرجة في 10 ثوانٍ</li>
+            <li><i class="fa-solid fa-check text-emerald-400 ms-1"></i> إشعار فوري لولي الأمر</li>
+            <li><i class="fa-solid fa-check text-emerald-400 ms-1"></i> مقارنة بالمتوسط الصفي</li>
+          </ul>
+          <button onclick="enterApp('teacher','grades')" class="mt-5 w-full bg-white/10 hover:bg-emerald-500 border border-white/20 py-2.5 rounded-xl font-black text-sm transition">جرّب السجل الآن <i class="fa-solid fa-arrow-left ms-1"></i></button>
+        </div>
+
+        <div class="bg-white/10 rounded-3xl p-6 border border-white/15 card-hover group">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 grid place-items-center text-2xl shadow-lg group-hover:scale-110 transition"><i class="fa-solid fa-heart-circle-check"></i></div>
+          <div class="text-[11px] font-black text-amber-300 mt-4">الوحدة 02</div>
+          <h3 class="font-black text-xl mt-1">لوحة السلوك والملاحظات الفورية</h3>
+          <p class="text-white/65 text-sm mt-2 leading-relaxed">نظام نقاط وشارات تحفيزية، وملاحظات لحظية (إيجابية/تحسينية) تصل للأهل مع توصية تربوية.</p>
+          <ul class="mt-4 space-y-2 text-[13px] font-bold text-white/80">
+            <li><i class="fa-solid fa-check text-amber-400 ms-1"></i> نقاط وشارات ونجوم يومية</li>
+            <li><i class="fa-solid fa-check text-amber-400 ms-1"></i> قوالب ملاحظات جاهزة</li>
+            <li><i class="fa-solid fa-check text-amber-400 ms-1"></i> خطة تحسين سلوكي مشتركة</li>
+          </ul>
+          <button onclick="enterApp('teacher','behavior')" class="mt-5 w-full bg-white/10 hover:bg-amber-500 border border-white/20 py-2.5 rounded-xl font-black text-sm transition">جرّب اللوحة الآن <i class="fa-solid fa-arrow-left ms-1"></i></button>
+        </div>
+
+        <div class="bg-white/10 rounded-3xl p-6 border border-white/15 card-hover group">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-rose-400 to-red-600 grid place-items-center text-2xl shadow-lg group-hover:scale-110 transition"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="text-[11px] font-black text-rose-300 mt-4">الوحدة 03</div>
+          <h3 class="font-black text-xl mt-1">رصد التجاوزات والأفعال المسيئة</h3>
+          <p class="text-white/65 text-sm mt-2 leading-relaxed">توثيق مصنّف حسب الخطورة مع مسار معالجة واضح: تنبيه ← تواصل ← خطة ← إغلاق ومتابعة.</p>
+          <ul class="mt-4 space-y-2 text-[13px] font-bold text-white/80">
+            <li><i class="fa-solid fa-check text-rose-400 ms-1"></i> تصنيف ذكي للخطورة</li>
+            <li><i class="fa-solid fa-check text-rose-400 ms-1"></i> إشراك فوري لولي الأمر</li>
+            <li><i class="fa-solid fa-check text-rose-400 ms-1"></i> سجل سري وتقارير للإدارة</li>
+          </ul>
+          <button onclick="enterApp('teacher','violations')" class="mt-5 w-full bg-white/10 hover:bg-rose-500 border border-white/20 py-2.5 rounded-xl font-black text-sm transition">جرّب الرصد الآن <i class="fa-solid fa-arrow-left ms-1"></i></button>
+        </div>
+
+        <div class="bg-white/10 rounded-3xl p-6 border border-white/15 card-hover group">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-400 to-indigo-600 grid place-items-center text-2xl shadow-lg group-hover:scale-110 transition"><i class="fa-solid fa-chart-column"></i></div>
+          <div class="text-[11px] font-black text-violet-300 mt-4">الوحدة 04</div>
+          <h3 class="font-black text-xl mt-1">مؤشر الأداء والتحليل البياني</h3>
+          <p class="text-white/65 text-sm mt-2 leading-relaxed">لوحات بيانية تفاعلية، رادار المواد، منحنى التقدم، وتوصيات ذكية مبنية على البيانات.</p>
+          <ul class="mt-4 space-y-2 text-[13px] font-bold text-white/80">
+            <li><i class="fa-solid fa-check text-violet-400 ms-1"></i> تحليل اتجاهات الأداء</li>
+            <li><i class="fa-solid fa-check text-violet-400 ms-1"></i> تنبؤ مبكر بالتعثر</li>
+            <li><i class="fa-solid fa-check text-violet-400 ms-1"></i> تقارير PDF جاهزة للطباعة</li>
+          </ul>
+          <button onclick="enterApp('teacher','analytics')" class="mt-5 w-full bg-white/10 hover:bg-violet-500 border border-white/20 py-2.5 rounded-xl font-black text-sm transition">جرّب التحليل الآن <i class="fa-solid fa-arrow-left ms-1"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- how it works -->
+  <section id="how" class="max-w-7xl mx-auto px-5 py-20">
+    <div class="text-center reveal">
+      <div class="font-black text-brand-600 text-sm"><i class="fa-solid fa-satellite-dish ms-1"></i> يعمل عبر شبكة بيانات الهاتف والواي فاي</div>
+      <h2 class="text-3xl sm:text-4xl font-black mt-2">من الصف إلى هاتف الأهل في <span class="grad-text">3 خطوات</span></h2>
+    </div>
+
+    <div class="relative mt-12">
+      <svg class="hidden lg:block absolute top-[86px] right-[12%] left-[12%] w-[76%] h-[60px] pointer-events-none" viewBox="0 0 1000 60" fill="none" aria-hidden="true">
+        <path d="M40 30 C 260 -10, 340 70, 500 30 S 760 -10, 960 30" stroke="#b5f5d3" stroke-width="3" stroke-dasharray="10 10" class="path-draw"/>
+      </svg>
+
+      <div class="grid md:grid-cols-3 gap-6 stagger reveal">
+        <div class="relative bg-white rounded-3xl border shadow-card p-7 text-center card-hover">
+          <div class="absolute -top-4 right-1/2 translate-x-1/2 w-9 h-9 grad-btn text-white rounded-full grid place-items-center font-black shadow-lg">1</div>
+          <div class="w-20 h-20 mx-auto rounded-3xl bg-brand-50 grid place-items-center text-4xl text-brand-600 mt-2"><i class="fa-solid fa-chalkboard-user"></i></div>
+          <h3 class="font-black text-lg mt-4">المعلم يرصد لحظياً</h3>
+          <p class="text-slate-500 text-sm mt-2 leading-relaxed">درجة، ملاحظة سلوكية، حضور أو تجاوز — إدخال واحد من الجوال أو الحاسب الصفي خلال ثوانٍ.</p>
+          <div class="mt-4 text-[12px] font-black text-brand-700 bg-brand-50 rounded-xl py-2"><i class="fa-solid fa-stopwatch ms-1"></i> أقل من 10 ثوانٍ للإدخال</div>
+        </div>
+        <div class="relative bg-white rounded-3xl border shadow-card p-7 text-center card-hover">
+          <div class="absolute -top-4 right-1/2 translate-x-1/2 w-9 h-9 grad-btn text-white rounded-full grid place-items-center font-black shadow-lg">2</div>
+          <div class="w-20 h-20 mx-auto rounded-3xl bg-indigo-50 grid place-items-center text-4xl text-indigo-600 mt-2"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+          <h3 class="font-black text-lg mt-4">مزامنة سحابية فورية</h3>
+          <p class="text-slate-500 text-sm mt-2 leading-relaxed">تُرفع البيانات عبر Wi-Fi المدرسة أو بيانات الهاتف، وتُحفظ نسخة احتياطية تعمل حتى دون اتصال.</p>
+          <div class="mt-4 flex justify-center flex-wrap gap-2 text-[11px] font-black">
+            <span class="bg-slate-100 px-3 py-1.5 rounded-full"><i class="fa-solid fa-wifi ms-1 text-brand-500"></i> Wi-Fi</span>
+            <span class="bg-slate-100 px-3 py-1.5 rounded-full"><i class="fa-solid fa-signal ms-1 text-indigo-500"></i> 4G/5G</span>
+            <span class="bg-slate-100 px-3 py-1.5 rounded-full"><i class="fa-solid fa-rotate ms-1 text-amber-500"></i> وضع عدم الاتصال</span>
+          </div>
+        </div>
+        <div class="relative bg-white rounded-3xl border shadow-card p-7 text-center card-hover">
+          <div class="absolute -top-4 right-1/2 translate-x-1/2 w-9 h-9 grad-btn text-white rounded-full grid place-items-center font-black shadow-lg">3</div>
+          <div class="w-20 h-20 mx-auto rounded-3xl bg-amber-50 grid place-items-center text-4xl text-amber-500 mt-2"><i class="fa-solid fa-bell"></i></div>
+          <h3 class="font-black text-lg mt-4">الأهل يستلمون ويتفاعلون</h3>
+          <p class="text-slate-500 text-sm mt-2 leading-relaxed">إشعار فوري + تفاصيل + توصية تربوية + إمكانية الرد على المعلم وحجز متابعة — من أي مكان.</p>
+          <div class="mt-4 text-[12px] font-black text-amber-700 bg-amber-50 rounded-xl py-2"><i class="fa-solid fa-bell ms-1"></i> إشعار خلال ثوانٍ من الاتصال</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal mt-10 grad-bg rounded-3xl p-6 sm:p-8 text-white flex flex-col lg:flex-row items-center gap-6 relative overflow-hidden">
+      <div class="absolute inset-0 pattern"></div>
+      <div class="relative flex-1">
+        <h3 class="font-black text-xl">جرّب محاكاة الاتصال الحي داخل العرض التفاعلي</h3>
+        <p class="text-white/80 text-sm mt-2 leading-relaxed">بدّل بين متصل / غير متصل وشاهد كيف تُحفظ التحديثات في قائمة الانتظار ثم تُزامَن تلقائياً — تماماً كما سيعمل التطبيق الحقيقي في المدرسة.</p>
+      </div>
+      <div class="relative flex items-center gap-3 bg-white/15 rounded-2xl p-4">
+        <div class="w-12 h-12 rounded-2xl bg-white grid place-items-center text-brand-600 text-xl"><i class="fa-solid fa-wifi"></i></div>
+        <div>
+          <div class="font-black text-sm">زمن المزامنة التجريبي</div>
+          <div class="text-2xl font-black" id="syncTimer">0.0 ث</div>
+        </div>
+        <button onclick="simulateSync(this)" class="bg-white text-slate-900 font-black px-5 py-2.5 rounded-xl text-sm hover:bg-brand-50 transition magnet">محاكاة إرسال</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- compare -->
+  <section id="compare" class="bg-slate-50 py-20 border-y">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="text-center reveal">
+        <h2 class="text-3xl font-black">قبل <span class="text-red-500">«مستقبلهم»</span> وبعده</h2>
+        <p class="text-slate-500 mt-2 font-bold text-sm">فرق واضح في سرعة المتابعة وجودة التواصل بين المدرسة والبيت.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6 mt-10">
+        <div class="reveal bg-white rounded-3xl border p-7 border-red-100 card-hover">
+          <div class="font-black text-red-500 mb-4 text-lg"><i class="fa-solid fa-circle-xmark ms-1"></i> الوضع التقليدي</div>
+          <ul class="space-y-3 text-sm font-bold text-slate-600">
+            <li class="flex gap-2"><i class="fa-solid fa-xmark text-red-400 mt-1"></i> دفتر المتابعة يضيع أو يُنسى في الحقيبة</li>
+            <li class="flex gap-2"><i class="fa-solid fa-xmark text-red-400 mt-1"></i> اكتشاف التراجع نهاية الفصل بعد فوات الأوان</li>
+            <li class="flex gap-2"><i class="fa-solid fa-xmark text-red-400 mt-1"></i> صعوبة التواصل مع المعلم إلا بالحضور</li>
+            <li class="flex gap-2"><i class="fa-solid fa-xmark text-red-400 mt-1"></i> لا توثيق للسلوك ولا خطة تحسين مشتركة</li>
+            <li class="flex gap-2"><i class="fa-solid fa-xmark text-red-400 mt-1"></i> تقارير ورقية متأخرة وغير دقيقة</li>
+          </ul>
+        </div>
+        <div class="reveal bg-ink-900 text-white rounded-3xl p-7 relative overflow-hidden card-hover">
+          <div class="absolute inset-0 pattern opacity-30"></div>
+          <div class="relative">
+            <div class="font-black text-brand-300 mb-4 text-lg"><i class="fa-solid fa-circle-check ms-1"></i> مع مستقبلهم</div>
+            <ul class="space-y-3 text-sm font-bold text-white/85">
+              <li class="flex gap-2"><i class="fa-solid fa-check text-brand-400 mt-1"></i> كل تحديث يصل للهاتف لحظياً عبر الإنترنت</li>
+              <li class="flex gap-2"><i class="fa-solid fa-check text-brand-400 mt-1"></i> تنبيه مبكر عند أول مؤشر تراجع أكاديمي أو سلوكي</li>
+              <li class="flex gap-2"><i class="fa-solid fa-check text-brand-400 mt-1"></i> محادثة مباشرة وآمنة بين الأهل والمعلم</li>
+              <li class="flex gap-2"><i class="fa-solid fa-check text-brand-400 mt-1"></i> نقاط وشارات تحفز الطفل يومياً + خطة تقويم</li>
+              <li class="flex gap-2"><i class="fa-solid fa-check text-brand-400 mt-1"></i> تحليلات بيانية وتقارير PDF فورية من أي مكان</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- visual story -->
+  <section class="max-w-7xl mx-auto px-5 py-20">
+    <div class="grid lg:grid-cols-2 gap-10 items-center">
+      <div class="relative">
+        <div class="absolute -top-6 -right-6 w-full h-full rounded-[2rem] bg-brand-100/70"></div>
+        <div class="relative rounded-[2rem] overflow-hidden shadow-lift reveal-x">
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1000&q=80"
+               alt="فصل دراسي في المرحلة الابتدائية" class="w-full h-[420px] object-cover">
+          <div class="absolute inset-0" style="background:linear-gradient(180deg,transparent 40%,rgba(11,21,38,.72))"></div>
+          <div class="absolute bottom-5 right-5 left-5 text-white">
+            <div class="text-[12px] font-black bg-white/20 inline-block px-3 py-1 rounded-full mb-2">تجربة الصف الذكي</div>
+            <div class="font-black text-lg leading-snug">المعلم يرصد، النظام يحلّل، والبيت يشارك — في نفس اللحظة.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="reveal">
+          <div class="font-black text-brand-600 text-sm"><i class="fa-solid fa-layer-group ms-1"></i> ثلاث واجهات مستقلة</div>
+          <h2 class="text-3xl sm:text-4xl font-black mt-2 leading-snug">كل جهة ترى ما يخصّها فقط، بوضوح وأمان</h2>
+          <p class="text-slate-600 mt-4 leading-relaxed">
+            صُممت واجهات «مستقبلهم» لتعمل بصلاحيات دقيقة: ولي الأمر يتابع ابنه، المعلم يدير صفيه، والإدارة تراقب المؤشرات على مستوى المدرسة.
+          </p>
+        </div>
+        <div class="mt-6 space-y-3 stagger reveal">
+          <button onclick="enterApp('parent')" class="w-full flex items-center gap-4 bg-white border rounded-2xl p-4 text-right card-hover hover:border-brand-400">
+            <div class="w-12 h-12 rounded-2xl av5 text-white grid place-items-center text-xl"><i class="fa-solid fa-user-group"></i></div>
+            <div class="flex-1">
+              <div class="font-black">بوابة ولي الأمر</div>
+              <div class="text-[12px] text-slate-500 font-bold">تحديثات فورية، متابعة الدرجات والسلوك، والرسائل</div>
+            </div>
+            <i class="fa-solid fa-arrow-left text-brand-500"></i>
+          </button>
+          <button onclick="enterApp('teacher')" class="w-full flex items-center gap-4 bg-white border rounded-2xl p-4 text-right card-hover hover:border-brand-400">
+            <div class="w-12 h-12 rounded-2xl av1 text-white grid place-items-center text-xl"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <div class="flex-1">
+              <div class="font-black">واجهة المعلم</div>
+              <div class="text-[12px] text-slate-500 font-bold">رصد العلامات والحضور والملاحظات والتجاوزات</div>
+            </div>
+            <i class="fa-solid fa-arrow-left text-brand-500"></i>
+          </button>
+          <button onclick="enterApp('admin')" class="w-full flex items-center gap-4 bg-white border rounded-2xl p-4 text-right card-hover hover:border-brand-400">
+            <div class="w-12 h-12 rounded-2xl av3 text-white grid place-items-center text-xl"><i class="fa-solid fa-building-shield"></i></div>
+            <div class="flex-1">
+              <div class="font-black">لوحة الإدارة</div>
+              <div class="text-[12px] text-slate-500 font-bold">مؤشرات المدرسة، التقارير، ومتابعة الحالات المفتوحة</div>
+            </div>
+            <i class="fa-solid fa-arrow-left text-brand-500"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- documentation -->
+  <section id="docs" class="bg-slate-50 border-y py-20">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="text-center reveal">
+        <div class="font-black text-brand-600 text-sm"><i class="fa-solid fa-file-lines ms-1"></i> التوثيق التقني</div>
+        <h2 class="text-3xl sm:text-4xl font-black mt-2">مقترح المشروع القابل للتنزيل</h2>
+        <p class="text-slate-600 mt-3 max-w-2xl mx-auto leading-relaxed">
+          التطبيق مبني على وثيقة مقترح المشروع الخاصة بمتابعة ورقابة المرحلة الابتدائية — تشمل الأهداف، الوحدات، المتطلبات، وخطة التنفيذ.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5 mt-10 stagger reveal">
+        <div class="bg-white rounded-3xl border p-6 shadow-card card-hover">
+          <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-700 grid place-items-center text-xl"><i class="fa-solid fa-list-check"></i></div>
+          <h3 class="font-black text-lg mt-4">نطاق المشروع</h3>
+          <ul class="mt-3 space-y-2 text-[13px] font-bold text-slate-600">
+            <li><i class="fa-solid fa-angle-left text-brand-500 ms-1"></i> ثلاث واجهات مستقلة بصلاحيات دقيقة</li>
+            <li><i class="fa-solid fa-angle-left text-brand-500 ms-1"></i> 4 وحدات وظيفية أساسية</li>
+            <li><i class="fa-solid fa-angle-left text-brand-500 ms-1"></i> مزامنة عبر Wi-Fi وبيانات الهاتف</li>
+          </ul>
+        </div>
+        <div class="bg-white rounded-3xl border p-6 shadow-card card-hover">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 grid place-items-center text-xl"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+          <h3 class="font-black text-lg mt-4">المتطلبات الفنية</h3>
+          <ul class="mt-3 space-y-2 text-[13px] font-bold text-slate-600">
+            <li><i class="fa-solid fa-angle-left text-indigo-500 ms-1"></i> قاعدة بيانات مركزية مشفّرة</li>
+            <li><i class="fa-solid fa-angle-left text-indigo-500 ms-1"></i> إشعارات فورية (Push Notifications)</li>
+            <li><i class="fa-solid fa-angle-left text-indigo-500 ms-1"></i> وضع عدم الاتصال مع مزامنة لاحقة</li>
+          </ul>
+        </div>
+        <div class="bg-white rounded-3xl border p-6 shadow-card card-hover">
+          <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 grid place-items-center text-xl"><i class="fa-solid fa-timeline"></i></div>
+          <h3 class="font-black text-lg mt-4">خطة التنفيذ</h3>
+          <ul class="mt-3 space-y-2 text-[13px] font-bold text-slate-600">
+            <li><i class="fa-solid fa-angle-left text-amber-500 ms-1"></i> المرحلة 1: التصميم وبناء قاعدة البيانات</li>
+            <li><i class="fa-solid fa-angle-left text-amber-500 ms-1"></i> المرحلة 2: التطوير والاختبار الميداني</li>
+            <li><i class="fa-solid fa-angle-left text-amber-500 ms-1"></i> المرحلة 3: التدريب والتوسّع</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-8 bg-white rounded-3xl border shadow-card p-6 flex flex-col sm:flex-row items-center gap-5 reveal">
+        <div class="w-16 h-16 rounded-2xl grad-btn text-white grid place-items-center text-2xl shadow-lg shrink-0">
+          <i class="fa-solid fa-file-arrow-down"></i>
+        </div>
+        <div class="flex-1 text-center sm:text-right">
+          <h3 class="font-black text-lg">وثيقة مقترح مشروع «مستقبلهم»</h3>
+          <p class="text-slate-500 text-sm mt-1">ملف نصي منسّق يشمل الأهداف والوحدات والمتطلبات ومؤشرات النجاح — جاهز للتنزيل والطباعة.</p>
+        </div>
+        <button onclick="downloadDoc()" class="grad-btn text-white px-7 py-3.5 rounded-2xl font-black shadow-lg magnet">
+          <i class="fa-solid fa-download ms-2"></i> تنزيل الوثيقة
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- testimonials -->
+  <section id="testimonials" class="max-w-7xl mx-auto px-5 py-20">
+    <div class="text-center reveal">
+      <div class="font-black text-brand-600 text-sm"><i class="fa-solid fa-comments ms-1"></i> ماذا يقول الميدان التربوي؟</div>
+      <h2 class="text-3xl font-black mt-2">ثقة المدارس والأهالي</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5 mt-10 stagger reveal">
+      <div class="bg-white rounded-3xl border shadow-card p-6 card-hover">
+        <div class="flex items-center gap-2 text-amber-400 text-sm">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="mt-3 text-slate-600 text-[15px] leading-relaxed">"كنت أكتشف مستوى ابني نهاية الشهر، الآن تصلني درجته وملاحظة المعلم قبل أن يعود للبيت. غيّر علاقتنا بالمدرسة تماماً."</p>
+        <div class="mt-5 flex items-center gap-3">
+          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=160&q=70" alt="ولية أمر" class="w-11 h-11 rounded-full object-cover">
+          <div>
+            <div class="font-black text-sm">نورة العتيبي</div>
+            <div class="text-[12px] text-slate-400 font-bold">ولية أمر — الصف الثاني</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl border shadow-card p-6 card-hover">
+        <div class="flex items-center gap-2 text-amber-400 text-sm">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="mt-3 text-slate-600 text-[15px] leading-relaxed">"نظام النقاط والشارات صنع معجزة في صفي. التنافس الإيجابي ارتفع، والتجاوزات انخفضت 60% في شهرين فقط."</p>
+        <div class="mt-5 flex items-center gap-3">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=160&q=70" alt="معلم" class="w-11 h-11 rounded-full object-cover">
+          <div>
+            <div class="font-black text-sm">أ. سالم القحطاني</div>
+            <div class="text-[12px] text-slate-400 font-bold">معلم صف ثالث — 18 سنة خبرة</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl border shadow-card p-6 card-hover">
+        <div class="flex items-center gap-2 text-amber-400 text-sm">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="mt-3 text-slate-600 text-[15px] leading-relaxed">"لوحة التحليلات وفّرت علينا اجتماعات كاملة. نرى مؤشرات كل فصل لحظياً ونتدخل مبكراً لدعم المتعثرين."</p>
+        <div class="mt-5 flex items-center gap-3">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=160&q=70" alt="مديرة مدرسة" class="w-11 h-11 rounded-full object-cover">
+          <div>
+            <div class="font-black text-sm">أ. منيرة الدوسري</div>
+            <div class="text-[12px] text-slate-400 font-bold">مديرة ابتدائية النخبة</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="max-w-4xl mx-auto px-5 pb-20">
+    <div class="text-center reveal">
+      <h2 class="text-3xl font-black">الأسئلة الشائعة</h2>
+      <p class="text-slate-500 mt-2 font-bold text-sm">كل ما تحتاج معرفته قبل البدء</p>
+    </div>
+    <div class="mt-8 space-y-3">
+      <div class="faq-item reveal bg-white border rounded-2xl overflow-hidden">
+        <button onclick="this.closest('.faq-item').classList.toggle('open')" class="w-full flex justify-between items-center p-5 font-black text-right">
+          <span>هل يعمل التطبيق بدون إنترنت؟</span>
+          <i class="fa-solid fa-chevron-down faq-arrow transition text-brand-600"></i>
+        </button>
+        <div class="faq-body">
+          <p class="px-5 pb-5 text-slate-500 text-sm leading-relaxed">
+            نعم، يعمل بوضع عدم الاتصال: يحفظ المعلم التحديثات على جهازه، وبمجرد الاتصال بالواي فاي أو بيانات الهاتف تُزامَن تلقائياً وتصل للأهالي فوراً.
+          </p>
+        </div>
+      </div>
+      <div class="faq-item reveal bg-white border rounded-2xl overflow-hidden">
+        <button onclick="this.closest('.faq-item').classList.toggle('open')" class="w-full flex justify-between items-center p-5 font-black text-right">
+          <span>كيف تصل التنبيهات لأولياء الأمور؟</span>
+          <i class="fa-solid fa-chevron-down faq-arrow transition text-brand-600"></i>
+        </button>
+        <div class="faq-body">
+          <p class="px-5 pb-5 text-slate-500 text-sm leading-relaxed">
+            عبر إشعارات فورية (Push) على الهاتف + رسائل داخل التطبيق + ملخص يومي مسائي. تعمل بمجرد اتصال الهاتف بالإنترنت من أي مكان.
+          </p>
+        </div>
+      </div>
+      <div class="faq-item reveal bg-white border rounded-2xl overflow-hidden">
+        <button onclick="this.closest('.faq-item').classList.toggle('open')" class="w-full flex justify-between items-center p-5 font-black text-right">
+          <span>هل بيانات الطلاب آمنة؟</span>
+          <i class="fa-solid fa-chevron-down faq-arrow transition text-brand-600"></i>
+        </button>
+        <div class="faq-body">
+          <p class="px-5 pb-5 text-slate-500 text-sm leading-relaxed">
+            بالتأكيد: تشفير كامل، صلاحيات حسب الدور (معلم / ولي أمر / إدارة)، وسجل التجاوزات سري لا يراه إلا المعنيون.
+          </p>
+        </div>
+      </div>
+      <div class="faq-item reveal bg-white border rounded-2xl overflow-hidden">
+        <button onclick="this.closest('.faq-item').classList.toggle('open')" class="w-full flex justify-between items-center p-5 font-black text-right">
+          <span>هل يناسب المرحلة الابتدائية فقط؟</span>
+          <i class="fa-solid fa-chevron-down faq-arrow transition text-brand-600"></i>
+        </button>
+        <div class="faq-body">
+          <p class="px-5 pb-5 text-slate-500 text-sm leading-relaxed">
+            صُمم أساساً للابتدائية (نقاط، نجوم، شارات، لغة مبسطة للأهل)، وقابل للتوسع للمراحل الأعلى بنفس البنية.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="demoCTA" class="max-w-7xl mx-auto px-5 pb-20">
+    <div class="reveal grad-bg rounded-[2rem] p-8 sm:p-12 text-white text-center relative overflow-hidden">
+      <div class="absolute inset-0 pattern"></div>
+      <div class="absolute -top-16 right-1/4 w-72 h-72 bg-white/10 blur-3xl rounded-full"></div>
+      <div class="relative max-w-2xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-black leading-snug">جاهز ترى «مستقبلهم» يعمل أمامك؟</h2>
+        <p class="text-white/80 mt-3 leading-relaxed">
+          ادخل العرض التفاعلي الكامل: أضف درجة وشاهد الإشعار يصل فوراً، سجّل ملاحظة سلوكية، وثّق تجاوزاً، واستكشف التحليلات — كل ذلك حي ومباشر.
+        </p>
+        <div class="mt-7 flex flex-wrap justify-center gap-3">
+          <button onclick="enterApp('teacher')" class="bg-white text-slate-900 px-7 py-3.5 rounded-2xl font-black hover:bg-brand-50 transition shadow-xl magnet">
+            <i class="fa-solid fa-chalkboard-user ms-2 text-brand-600"></i> دخول كمعلم
+          </button>
+          <button onclick="enterApp('parent')" class="bg-white/15 border border-white/30 px-7 py-3.5 rounded-2xl font-black hover:bg-white/25 transition magnet">
+            <i class="fa-solid fa-user-group ms-2"></i> دخول كولي أمر
+          </button>
+          <button onclick="enterApp('admin')" class="bg-white/15 border border-white/30 px-7 py-3.5 rounded-2xl font-black hover:bg-white/25 transition magnet">
+            <i class="fa-solid fa-shield-halved ms-2"></i> دخول كإدارة
+          </button>
+        </div>
+        <div class="mt-5 text-[12px] text-white/60 font-bold">
+          <i class="fa-solid fa-wand-magic-sparkles ms-1"></i> لا حاجة للتسجيل — بيانات تجريبية واقعية لصف الثالث (أ)
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-ink-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl grad-btn grid place-items-center text-lg shadow-lg"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div>
+            <div class="font-black text-lg">مستقبلهم</div>
+            <div class="text-white/50 font-bold text-sm">منصة المتابعة والرقابة المدرسية الذكية — عماد العلي</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-white/60 text-sm font-bold">
+          <a href="#features" class="hover:text-white transition">المنظومة</a>
+          <a href="#how" class="hover:text-white transition">كيف يعمل</a>
+          <a href="#docs" class="hover:text-white transition">وثيقة المشروع</a>
+          <a href="#faq" class="hover:text-white transition">الأسئلة</a>
+          <button onclick="downloadDoc()" class="hover:text-white transition">تنزيل المقترح</button>
+        </div>
+      </div>
+      <div class="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3 text-white/40 text-[13px] font-bold">
+        <div>© 2026 مستقبلهم — مقترح مشروع الرقابة المدرسية الذكية. جميع الحقوق محفوظة.</div>
+        <div>صُنع بشغف من أجل جيل أفضل <i class="fa-solid fa-seedling text-brand-400 ms-1"></i> — عماد العلي</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ============================= APP ============================= -->
+<div id="app" class="hidden min-h-screen">
+  <div id="offlineBanner" class="hidden bg-amber-500 text-white text-center py-2 text-sm font-black no-print">
+    <i class="fa-solid fa-plug-circle-xmark ms-1"></i> غير متصل بالإنترنت — سيتم حفظ التحديثات في قائمة الانتظار (<span id="queueCount">0</span>) ومزامنتها تلقائياً
+  </div>
+
+  <div class="flex">
+    <!-- SIDEBAR -->
+    <aside class="no-print hidden lg:flex flex-col w-64 shrink-0 bg-white border-l sticky top-0 h-screen">
+      <div class="p-5 flex items-center gap-3 border-b">
+        <div class="w-11 h-11 rounded-2xl grad-btn grid place-items-center text-white text-lg shadow"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div>
+          <div class="font-black text-lg leading-none">مستقبلهم</div>
+          <div class="text-[11px] text-slate-400 font-bold" id="sideRoleLabel">لوحة المعلم</div>
+        </div>
+      </div>
+
+      <div class="p-4">
+        <div class="bg-gradient-to-br from-brand-50 to-indigo-50 rounded-2xl p-4 border border-brand-100">
+          <div class="flex items-center gap-3">
+            <div id="sideAvatar" class="w-11 h-11 rounded-full av1 text-white grid place-items-center font-black">س</div>
+            <div class="flex-1 min-w-0">
+              <div id="sideUserName" class="font-black text-sm truncate">أ. سالم القحطاني</div>
+              <div id="sideUserSub" class="text-[11px] text-slate-500 font-bold">الثالث (أ) • 10 طلاب</div>
+            </div>
+          </div>
+          <div class="mt-3 flex gap-1.5">
+            <button onclick="switchRole('teacher')" id="roleBtnTeacher" class="flex-1 text-[11px] font-black py-1.5 rounded-lg bg-ink-900 text-white transition">معلم</button>
+            <button onclick="switchRole('parent')" id="roleBtnParent" class="flex-1 text-[11px] font-black py-1.5 rounded-lg bg-white border transition">ولي أمر</button>
+            <button onclick="switchRole('admin')" id="roleBtnAdmin" class="flex-1 text-[11px] font-black py-1.5 rounded-lg bg-white border transition">إدارة</button>
+          </div>
+        </div>
+      </div>
+
+      <nav class="flex-1 px-4 space-y-1 overflow-y-auto text-[14px] font-bold text-slate-600" id="sideNav">
+        <button data-view="dashboard" onclick="switchView('dashboard')" class="side-link active w-full flex items-center gap-3 px-4 py-2.5"><i class="fa-solid fa-table-cells-large w-5 text-center"></i> لوحة القيادة</button>
+        <button data-view="students" onclick="switchView('students')" class="side-link w-full flex items-center gap-3 px-4 py-2.5"><i class="fa-solid fa-children w-5 text-center"></i> الطلاب <span id="navStudentCount" class="ms-auto text-[10px] bg-slate-100 px-2 py-0.5 rounded-full">10</span></button>
+        <button data-view="grades" onclick="switchView('grades')" class="side-link w-full flex items-center gap-3 px-4 py-2.5"><i class="fa-solid fa-book-open w-5 text-center"></i> سجل العلامات</button>
+        <button data-view="behavior" onclick="switchView('behavior')" class="side-link w-full flex items-center gap-3 px-4 py-2.5"><i class="fa-solid fa-heart w-5 text-center"></i> السلوك اليومي <span class="ms-auto text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">مباشر</span></button>
+        <button data-view="violations" onclick="switchView('violations')" class="side-link w-full flex items-center gap-3 px-4 py-2.5"><i class="fa-solid fa-shield-halved w-5 text-center"></i> رصد التجاوزات <span id="navViolCount" class="ms-auto text-[10px] bg-red-100 text-red-600 px-2 py-0.5 rounded-full">3</span></button>
+        <button data-view="analytics" onclick="switchView('analytics')" class="side-link w-full flex items-center gap-3 px-4 py-2.5"><i class="fa-solid fa-chart-line w-5 text-center"></i> التحليل البياني</button>
+        <button data-view="attendance" onclick="switchView('attendance')" class="side-link w-full flex items-center gap-3 px-4 py-2.5"><i class="fa-solid fa-calendar-check w-5 text-center"></i> الحضور والغياب</button>
+        <button data-view="messages" onclick="switchView('messages')" class="side-link w-full flex items-center gap-3 px-4 py-2.5"><i class="fa-solid fa-comments w-5 text-center"></i> الرسائل <span id="navMsgBadge" class="ms-auto text-[10px] bg-brand-500 text-white px-2 py-0.5 rounded-full">2</span></button>
+        <button data-view="reports" onclick="switchView('reports')" class="side-link w-full flex items-center gap-3 px-4 py-2.5"><i class="fa-solid fa-file-pdf w-5 text-center"></i> التقارير</button>
+      </nav>
+
+      <div class="p-4 border-t">
+        <button onclick="backToLanding()" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border font-black text-sm text-slate-500 hover:border-red-300 hover:text-red-500 transition">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> عودة لصفحة المشروع
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="flex-1 min-w-0">
+      <header class="no-print sticky top-0 z-40 glass border-b">
+        <div class="px-4 sm:px-6 py-3 flex items-center gap-3">
+          <button class="lg:hidden w-10 h-10 rounded-xl bg-slate-100 grid place-items-center" onclick="document.getElementById('mobileNav').classList.toggle('hidden')">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="hidden sm:block">
+            <div class="font-black text-lg leading-none" id="viewTitle">لوحة القيادة</div>
+            <div class="text-[11px] text-slate-400 font-bold" id="todayDate">—</div>
+          </div>
+          <div class="flex-1"></div>
+
+          <div class="hidden md:flex items-center bg-slate-100 rounded-xl px-3 py-2 w-64">
+            <i class="fa-solid fa-magnifying-glass text-slate-400 text-sm"></i>
+            <input id="globalSearch" oninput="globalSearchGo(this.value)" placeholder="ابحث عن طالب..." class="bg-transparent px-2 text-sm font-bold w-full">
+          </div>
+
+          <button id="connBtn" onclick="toggleOnline()" class="flex items-center gap-2 px-3 py-2 rounded-xl font-black text-[12px] bg-green-50 text-green-700 border border-green-200 transition">
+            <span class="wifi-wave flex items-end gap-[2px] h-4"><span></span><span></span><span></span><span></span></span>
+            <span id="connLabel">متصل • Wi-Fi</span>
+          </button>
+
+          <button onclick="toggleNotifDrawer(true)" class="relative w-10 h-10 rounded-xl bg-slate-100 grid place-items-center hover:bg-brand-50 transition">
+            <i class="fa-solid fa-bell"></i>
+            <span id="notifBadge" class="absolute -top-1 -left-1 w-5 h-5 bg-red-500 text-white text-[10px] font-black rounded-full grid place-items-center">4</span>
+          </button>
+
+          <div id="topAvatar" class="w-10 h-10 rounded-xl av1 text-white grid place-items-center font-black cursor-pointer" onclick="switchView('reports')">س</div>
+        </div>
+
+        <div id="mobileNav" class="hidden lg:hidden px-4 pb-3 grid grid-cols-4 gap-2 text-center text-[11px] font-black">
+          <button onclick="switchView('dashboard')" class="bg-slate-100 rounded-xl py-2.5"><i class="fa-solid fa-table-cells-large block mb-1"></i>الرئيسية</button>
+          <button onclick="switchView('students')" class="bg-slate-100 rounded-xl py-2.5"><i class="fa-solid fa-children block mb-1"></i>الطلاب</button>
+          <button onclick="switchView('grades')" class="bg-slate-100 rounded-xl py-2.5"><i class="fa-solid fa-book-open block mb-1"></i>العلامات</button>
+          <button onclick="switchView('behavior')" class="bg-slate-100 rounded-xl py-2.5"><i class="fa-solid fa-heart block mb-1"></i>السلوك</button>
+          <button onclick="switchView('violations')" class="bg-slate-100 rounded-xl py-2.5"><i class="fa-solid fa-shield-halved block mb-1"></i>التجاوزات</button>
+          <button onclick="switchView('analytics')" class="bg-slate-100 rounded-xl py-2.5"><i class="fa-solid fa-chart-line block mb-1"></i>التحليل</button>
+          <button onclick="switchView('attendance')" class="bg-slate-100 rounded-xl py-2.5"><i class="fa-solid fa-calendar-check block mb-1"></i>الحضور</button>
+          <button onclick="switchView('messages')" class="bg-slate-100 rounded-xl py-2.5"><i class="fa-solid fa-comments block mb-1"></i>الرسائل</button>
+        </div>
+      </header>
+
+      <main class="p-4 sm:p-6 max-w-7xl mx-auto pb-28">
+
+        <!-- DASHBOARD -->
+        <section id="view-dashboard" class="view-section active">
+          <div class="grad-bg rounded-3xl p-6 sm:p-8 text-white relative overflow-hidden">
+            <div class="absolute inset-0 pattern"></div>
+            <div class="relative flex flex-col lg:flex-row lg:items-center gap-6">
+              <div class="flex-1">
+                <div class="text-[13px] font-bold bg-white/20 inline-flex items-center gap-2 px-3 py-1 rounded-full">
+                  <span class="dot-live !bg-green-300"></span>
+                  <span id="dashHello">صباح الخير، أستاذ سالم ☀️</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black mt-3" id="dashWelcome">اليوم: الثلاثاء • الثالث (أ) — كل الأنظمة تعمل لحظياً</h2>
+                <p class="text-white/75 text-sm mt-2" id="dashSub">تمت مزامنة 24 تحديثاً اليوم • آخر مزامنة قبل 12 ثانية عبر Wi-Fi المدرسة</p>
+                <div class="mt-5 flex flex-wrap gap-2.5">
+                  <button onclick="openModal('grade')" class="bg-white text-slate-900 px-5 py-2.5 rounded-xl font-black text-sm hover:bg-brand-50 transition magnet">
+                    <i class="fa-solid fa-plus ms-1 text-brand-600"></i> رصد درجة
+                  </button>
+                  <button onclick="openModal('behavior')" class="bg-white/15 border border-white/30 px-5 py-2.5 rounded-xl font-black text-sm hover:bg-white/25 transition magnet">
+                    <i class="fa-solid fa-heart ms-1"></i> ملاحظة سلوكية
+                  </button>
+                  <button onclick="openModal('violation')" class="bg-white/15 border border-white/30 px-5 py-2.5 rounded-xl font-black text-sm hover:bg-white/25 transition magnet">
+                    <i class="fa-solid fa-shield-halved ms-1"></i> توثيق تجاوز
+                  </button>
+                  <button onclick="switchView('messages')" class="bg-white/15 border border-white/30 px-5 py-2.5 rounded-xl font-black text-sm hover:bg-white/25 transition magnet">
+                    <i class="fa-solid fa-paper-plane ms-1"></i> مراسلة ولي أمر
+                  </button>
+                </div>
+              </div>
+
+              <div class="bg-white/12 rounded-2xl p-5 border border-white/20 min-w-[260px]">
+                <div class="text-[12px] font-bold text-white/70">مؤشر صحة الصف اليوم</div>
+                <div class="flex items-end gap-2 mt-1">
+                  <span class="text-5xl font-black" id="healthScore">94</span>
+                  <span class="font-black text-green-300 mb-1">ممتاز <i class="fa-solid fa-arrow-trend-up"></i></span>
+                </div>
+                <div class="mt-3 h-2.5 bg-white/20 rounded-full overflow-hidden">
+                  <div id="healthBar" class="h-full w-[94%] bg-gradient-to-l from-yellow-300 via-green-300 to-emerald-300 rounded-full transition-all duration-1000"></div>
+                </div>
+                <div class="mt-3 grid grid-cols-3 gap-2 text-center text-[11px] font-black">
+                  <div class="bg-white/10 rounded-xl py-2"><div class="text-lg" id="miniAttend">100%</div><div class="text-white/60">حضور</div></div>
+                  <div class="bg-white/10 rounded-xl py-2"><div class="text-lg" id="miniBehav">+38</div><div class="text-white/60">نقاط</div></div>
+                  <div class="bg-white/10 rounded-xl py-2"><div class="text-lg" id="miniAvg">91%</div><div class="text-white/60">متوسط</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mt-5">
+            <div class="kpi-anim bg-white rounded-2xl border shadow-card p-5">
+              <div class="flex justify-between">
+                <div class="w-11 h-11 rounded-xl bg-brand-100 text-brand-600 grid place-items-center"><i class="fa-solid fa-children"></i></div>
+                <span class="text-[11px] font-black text-green-600 bg-green-50 px-2 py-1 rounded-full">+2 هذا الفصل</span>
+              </div>
+              <div class="text-3xl font-black mt-3" id="kpiStudents">10</div>
+              <div class="text-[13px] font-bold text-slate-500">إجمالي الطلاب • الثالث (أ)</div>
+            </div>
+            <div class="kpi-anim bg-white rounded-2xl border shadow-card p-5">
+              <div class="flex justify-between">
+                <div class="w-11 h-11 rounded-xl bg-indigo-100 text-indigo-600 grid place-items-center"><i class="fa-solid fa-chart-line"></i></div>
+                <span class="text-[11px] font-black text-green-600 bg-green-50 px-2 py-1 rounded-full"><i class="fa-solid fa-arrow-up ms-1"></i> 3.2%</span>
+              </div>
+              <div class="text-3xl font-black mt-3" id="kpiAvg">—</div>
+              <div class="text-[13px] font-bold text-slate-500">المتوسط العام للصف</div>
+            </div>
+            <div class="kpi-anim bg-white rounded-2xl border shadow-card p-5">
+              <div class="flex justify-between">
+                <div class="w-11 h-11 rounded-xl bg-amber-100 text-amber-600 grid place-items-center"><i class="fa-solid fa-star"></i></div>
+                <span class="text-[11px] font-black text-green-600 bg-green-50 px-2 py-1 rounded-full">اليوم +38</span>
+              </div>
+              <div class="text-3xl font-black mt-3" id="kpiBehav">—</div>
+              <div class="text-[13px] font-bold text-slate-500">متوسط نقاط السلوك</div>
+            </div>
+            <div class="kpi-anim bg-white rounded-2xl border shadow-card p-5">
+              <div class="flex justify-between">
+                <div class="w-11 h-11 rounded-xl bg-rose-100 text-rose-600 grid place-items-center"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <span class="text-[11px] font-black bg-red-50 text-red-500 px-2 py-1 rounded-full" id="kpiViolPill">3 قيد المعالجة</span>
+              </div>
+              <div class="text-3xl font-black mt-3" id="kpiAttend">—</div>
+              <div class="text-[13px] font-bold text-slate-500">نسبة الحضور هذا الأسبوع</div>
+            </div>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-4 mt-5">
+            <div class="lg:col-span-2 bg-white rounded-2xl border shadow-card p-5">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-black">منحنى الأداء الأسبوعي — الصف مقابل أحمد الحربي</h3>
+                <span class="text-[11px] font-black text-slate-400">آخر 6 أسابيع</span>
+              </div>
+              <div class="h-64"><canvas id="chTrend"></canvas></div>
+            </div>
+            <div class="bg-white rounded-2xl border shadow-card p-5">
+              <h3 class="font-black mb-1">توزيع السلوك اليوم</h3>
+              <p class="text-[12px] text-slate-400 font-bold mb-3">إيجابي مقابل يحتاج تحسين</p>
+              <div class="h-48"><canvas id="chBehavDonut"></canvas></div>
+              <div class="mt-3 grid grid-cols-2 gap-2 text-center text-[12px] font-black">
+                <div class="bg-green-50 text-green-700 rounded-xl py-2" id="posCount">— إيجابي</div>
+                <div class="bg-amber-50 text-amber-700 rounded-xl py-2" id="negCount">— للتحسين</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-4 mt-5">
+            <div class="bg-white rounded-2xl border shadow-card p-5">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-black"><i class="fa-solid fa-trophy text-amber-500 ms-1"></i> المتصدرون هذا الأسبوع</h3>
+                <button onclick="switchView('students')" class="text-[12px] font-black text-brand-600 hover:underline">الكل <i class="fa-solid fa-arrow-left"></i></button>
+              </div>
+              <div id="leaderboard" class="space-y-2.5"></div>
+            </div>
+            <div class="lg:col-span-2 bg-white rounded-2xl border shadow-card p-5">
+              <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                <h3 class="font-black"><i class="fa-solid fa-bolt text-brand-500 ms-1"></i> البث الحي — آخر التحديثات <span class="dot-live inline-block ms-1"></span></h3>
+                <button onclick="simulateLiveEvent()" class="text-[12px] font-black bg-ink-900 text-white px-3 py-1.5 rounded-lg hover:bg-brand-600 transition">
+                  <i class="fa-solid fa-satellite-dish ms-1"></i> محاكاة حدث حي
+                </button>
+              </div>
+              <div id="liveFeed" class="space-y-3 max-h-[340px] overflow-y-auto ps-1"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STUDENTS -->
+        <section id="view-students" class="view-section">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
+            <div>
+              <h2 class="text-2xl font-black">طلاب الثالث (أ)</h2>
+              <p class="text-sm text-slate-500 font-bold">اضغط على أي بطاقة لعرض الملف الشامل للطالب</p>
+            </div>
+            <div class="flex-1"></div>
+            <input id="studentSearch" oninput="renderStudents()" placeholder="بحث بالاسم..." class="border rounded-xl px-4 py-2.5 text-sm font-bold w-full sm:w-56">
+            <select id="studentSort" onchange="renderStudents()" class="border rounded-xl px-4 py-2.5 text-sm font-bold">
+              <option value="avg">ترتيب: الأعلى معدلاً</option>
+              <option value="behavior">ترتيب: الأعلى سلوكاً</option>
+              <option value="name">ترتيب: أبجدي</option>
+            </select>
+          </div>
+          <div id="studentsGrid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+        </section>
+
+        <!-- GRADES -->
+        <section id="view-grades" class="view-section">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
+            <div>
+              <h2 class="text-2xl font-black">سجل العلامات والتقييم اليومي</h2>
+              <p class="text-sm text-slate-500 font-bold">كل درجة تُدخل تصل لولي الأمر فوراً عبر الإنترنت</p>
+            </div>
+            <div class="flex-1"></div>
+            <button onclick="exportCSV()" class="px-4 py-2.5 rounded-xl border font-black text-sm hover:bg-slate-50 transition"><i class="fa-solid fa-download ms-1"></i> تصدير CSV</button>
+            <button onclick="openModal('grade')" class="grad-btn text-white px-5 py-2.5 rounded-xl font-black text-sm"><i class="fa-solid fa-plus ms-1"></i> رصد درجة جديدة</button>
+          </div>
+
+          <div class="bg-white rounded-2xl border shadow-card p-4 mb-4 flex flex-wrap gap-3 items-center">
+            <select id="gradeSubjectFilter" onchange="renderGrades()" class="border rounded-xl px-4 py-2 text-sm font-bold"><option value="">كل المواد</option></select>
+            <select id="gradeStudentFilter" onchange="renderGrades()" class="border rounded-xl px-4 py-2 text-sm font-bold"><option value="">كل الطلاب</option></select>
+            <select id="gradeTypeFilter" onchange="renderGrades()" class="border rounded-xl px-4 py-2 text-sm font-bold">
+              <option value="">كل الأنواع</option>
+              <option>اختبار قصير</option><option>واجب</option><option>مشاركة</option><option>اختبار فصلي</option><option>نشاط</option>
+            </select>
+            <div class="ms-auto text-[13px] font-black text-slate-500">المتوسط: <span id="gradeAvgLabel" class="text-brand-600 text-lg">—</span></div>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-4">
+            <div class="lg:col-span-2 bg-white rounded-2xl border shadow-card overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="bg-slate-50 text-slate-500 text-[12px]">
+                      <th class="p-3 text-right font-black">الطالب</th>
+                      <th class="p-3 font-black">المادة</th>
+                      <th class="p-3 font-black">النوع</th>
+                      <th class="p-3 font-black">الدرجة</th>
+                      <th class="p-3 font-black">التاريخ</th>
+                      <th class="p-3 font-black">الحالة</th>
+                    </tr>
+                  </thead>
+                  <tbody id="gradesTable"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div class="bg-white rounded-2xl border shadow-card p-5">
+                <h3 class="font-black text-sm mb-3">متوسط المواد</h3>
+                <div class="h-56"><canvas id="chSubjects"></canvas></div>
+              </div>
+              <div class="grad-bg rounded-2xl p-5 text-white relative overflow-hidden">
+                <div class="absolute inset-0 pattern"></div>
+                <div class="relative">
+                  <h3 class="font-black text-sm"><i class="fa-solid fa-wand-magic-sparkles ms-1"></i> تنبيه ذكي</h3>
+                  <p class="text-[13px] text-white/80 mt-2 leading-relaxed" id="gradeSmartAlert">—</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BEHAVIOR -->
+        <section id="view-behavior" class="view-section">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
+            <div>
+              <h2 class="text-2xl font-black">لوحة السلوك والملاحظات الفورية</h2>
+              <p class="text-sm text-slate-500 font-bold">نقاط، شارات، وملاحظات لحظية تصل للأهل مع توصية تربوية</p>
+            </div>
+            <div class="flex-1"></div>
+            <button onclick="openModal('behavior','positive')" class="bg-green-600 text-white px-5 py-2.5 rounded-xl font-black text-sm hover:bg-green-700 transition"><i class="fa-solid fa-thumbs-up ms-1"></i> تعزيز إيجابي</button>
+            <button onclick="openModal('behavior','negative')" class="bg-amber-500 text-white px-5 py-2.5 rounded-xl font-black text-sm hover:bg-amber-600 transition"><i class="fa-solid fa-lightbulb ms-1"></i> ملاحظة تحسينية</button>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-4">
+            <div class="bg-white rounded-2xl border shadow-card p-5">
+              <h3 class="font-black mb-3"><i class="fa-solid fa-ranking-star text-amber-500 ms-1"></i> ترتيب نقاط السلوك</h3>
+              <div id="behaviorRanking" class="space-y-2.5"></div>
+              <div class="mt-4 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-4">
+                <div class="font-black text-sm"><i class="fa-solid fa-star text-amber-500 ms-1"></i> نجم اليوم</div>
+                <div class="flex items-center gap-3 mt-2">
+                  <div id="starAvatar" class="w-12 h-12 rounded-full av1 text-white grid place-items-center font-black text-lg">ل</div>
+                  <div>
+                    <div id="starName" class="font-black">—</div>
+                    <div id="starReason" class="text-[12px] text-slate-500 font-bold">—</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-2">
+              <div class="bg-white rounded-2xl border shadow-card p-4 mb-4 flex flex-wrap gap-2 items-center">
+                <button onclick="setBehavFilter('all',this)" class="behav-tab tab-btn active px-4 py-2 rounded-xl text-[13px] font-black bg-slate-100 transition">الكل</button>
+                <button onclick="setBehavFilter('positive',this)" class="behav-tab tab-btn px-4 py-2 rounded-xl text-[13px] font-black bg-slate-100 transition"><i class="fa-solid fa-star text-amber-400 ms-1"></i> إيجابي</button>
+                <button onclick="setBehavFilter('negative',this)" class="behav-tab tab-btn px-4 py-2 rounded-xl text-[13px] font-black bg-slate-100 transition"><i class="fa-solid fa-lightbulb text-amber-500 ms-1"></i> يحتاج تحسين</button>
+                <div class="ms-auto text-[12px] font-black text-slate-400">إجمالي اليوم: <span id="behavTotal" class="text-ink-900">—</span></div>
+              </div>
+              <div id="behaviorFeed" class="space-y-3"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIOLATIONS -->
+        <section id="view-violations" class="view-section">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
+            <div>
+              <h2 class="text-2xl font-black">نظام رصد التجاوزات والأفعال المسيئة</h2>
+              <p class="text-sm text-slate-500 font-bold">توثيق سري مصنّف حسب الخطورة مع مسار معالجة واضح</p>
+            </div>
+            <div class="flex-1"></div>
+            <button onclick="openModal('violation')" class="bg-red-600 text-white px-5 py-2.5 rounded-xl font-black text-sm hover:bg-red-700 transition shadow-lg"><i class="fa-solid fa-plus ms-1"></i> توثيق تجاوز جديد</button>
+          </div>
+
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+            <div class="bg-white rounded-2xl border shadow-card p-4 text-center">
+              <div class="text-2xl font-black" id="violTotal">—</div>
+              <div class="text-[12px] font-bold text-slate-500">إجمالي التجاوزات</div>
+            </div>
+            <div class="bg-white rounded-2xl border shadow-card p-4 text-center border-t-4 !border-t-red-500">
+              <div class="text-2xl font-black text-red-600" id="violHigh">—</div>
+              <div class="text-[12px] font-bold text-slate-500">خطورة عالية</div>
+            </div>
+            <div class="bg-white rounded-2xl border shadow-card p-4 text-center border-t-4 !border-t-amber-500">
+              <div class="text-2xl font-black text-amber-600" id="violPending">—</div>
+              <div class="text-[12px] font-bold text-slate-500">قيد المعالجة</div>
+            </div>
+            <div class="bg-white rounded-2xl border shadow-card p-4 text-center border-t-4 !border-t-green-500">
+              <div class="text-2xl font-black text-green-600" id="violResolved">—</div>
+              <div class="text-[12px] font-bold text-slate-500">تمت معالجتها</div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl border shadow-card p-4 mb-4 flex flex-wrap gap-2 items-center">
+            <button onclick="setViolFilter('all',this)" class="viol-tab tab-btn active px-4 py-2 rounded-xl text-[13px] font-black bg-slate-100 transition">الكل</button>
+            <button onclick="setViolFilter('high',this)" class="viol-tab tab-btn px-4 py-2 rounded-xl text-[13px] font-black bg-slate-100 transition">عالية</button>
+            <button onclick="setViolFilter('medium',this)" class="viol-tab tab-btn px-4 py-2 rounded-xl text-[13px] font-black bg-slate-100 transition">متوسطة</button>
+            <button onclick="setViolFilter('low',this)" class="viol-tab tab-btn px-4 py-2 rounded-xl text-[13px] font-black bg-slate-100 transition">منخفضة</button>
+            <span class="ms-auto text-[11px] font-black text-slate-400"><i class="fa-solid fa-lock ms-1"></i> سجل سري — يظهر للمعنيين فقط</span>
+          </div>
+
+          <div id="violationsList" class="space-y-3"></div>
+        </section>
+
+        <!-- ANALYTICS -->
+        <section id="view-analytics" class="view-section">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
+            <div>
+              <h2 class="text-2xl font-black">مؤشر الأداء والتحليل البياني</h2>
+              <p class="text-sm text-slate-500 font-bold">رؤى ذكية مبنية على البيانات مع توصيات تربوية</p>
+            </div>
+            <div class="flex-1"></div>
+            <select id="analyticsStudent" onchange="renderAnalytics()" class="border rounded-xl px-4 py-2.5 text-sm font-bold"></select>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-4">
+            <div class="bg-white rounded-2xl border shadow-card p-5">
+              <h3 class="font-black text-sm mb-1">رادار المواد — <span id="radarName">—</span></h3>
+              <p class="text-[12px] text-slate-400 font-bold mb-2">مقارنة بأعلى درجة صفيّة</p>
+              <div class="h-64"><canvas id="chRadar"></canvas></div>
+            </div>
+            <div class="bg-white rounded-2xl border shadow-card p-5">
+              <h3 class="font-black text-sm mb-1">تطور المعدل عبر الأسابيع</h3>
+              <p class="text-[12px] text-slate-400 font-bold mb-2">الطالب مقابل متوسط الصف</p>
+              <div class="h-64"><canvas id="chProgress"></canvas></div>
+            </div>
+            <div class="bg-ink-900 text-white rounded-2xl p-5 relative overflow-hidden">
+              <div class="absolute inset-0 pattern opacity-30"></div>
+              <div class="relative">
+                <h3 class="font-black text-sm"><i class="fa-solid fa-robot text-brand-300 ms-1"></i> التحليل الذكي والتوصيات</h3>
+                <div id="aiInsights" class="mt-3 space-y-2.5 text-[13px] leading-relaxed"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid lg:grid-cols-2 gap-4 mt-4">
+            <div class="bg-white rounded-2xl border shadow-card p-5">
+              <h3 class="font-black text-sm mb-3">العلاقة: الحضور × المعدل (تشتت الصف)</h3>
+              <div class="h-56"><canvas id="chScatter"></canvas></div>
+            </div>
+            <div class="bg-white rounded-2xl border shadow-card p-5">
+              <h3 class="font-black text-sm mb-3">السلوك مقابل التحصيل — نظرة الصف</h3>
+              <div class="h-56"><canvas id="chBarCompare"></canvas></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ATTENDANCE -->
+        <section id="view-attendance" class="view-section">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
+            <div>
+              <h2 class="text-2xl font-black">الحضور والغياب</h2>
+              <p class="text-sm text-slate-500 font-bold">رصد يومي يصل لولي الأمر فور تسجيله — اضغط على الحالة لتغييرها</p>
+            </div>
+            <div class="flex-1"></div>
+            <button onclick="markAllPresent()" class="grad-btn text-white px-5 py-2.5 rounded-xl font-black text-sm"><i class="fa-solid fa-check-double ms-1"></i> تحديد الكل حاضر</button>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-4">
+            <div class="lg:col-span-2 bg-white rounded-2xl border shadow-card p-5">
+              <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                <h3 class="font-black">تحضير اليوم — <span id="attDateLabel">—</span></h3>
+                <span class="text-[12px] font-black bg-green-50 text-green-700 px-3 py-1.5 rounded-full" id="attSummary">—</span>
+              </div>
+              <div id="attendanceList" class="space-y-2 max-h-[480px] overflow-y-auto ps-1"></div>
+            </div>
+            <div class="space-y-4">
+              <div class="bg-white rounded-2xl border shadow-card p-5">
+                <h3 class="font-black text-sm mb-3">نسبة الحضور الأسبوعية</h3>
+                <div class="h-52"><canvas id="chAttend"></canvas></div>
+              </div>
+              <div class="bg-white rounded-2xl border shadow-card p-5">
+                <h3 class="font-black text-sm mb-3"><i class="fa-solid fa-bell text-amber-500 ms-1"></i> تنبيهات الغياب</h3>
+                <div id="absenceAlerts" class="space-y-2 text-[13px] font-bold"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MESSAGES -->
+        <section id="view-messages" class="view-section">
+          <div class="mb-5">
+            <h2 class="text-2xl font-black">الرسائل المباشرة — جسر المدرسة والبيت</h2>
+            <p class="text-sm text-slate-500 font-bold">تواصل آمن وموثق بين المعلم وولي الأمر</p>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-4 h-[620px]">
+            <div class="bg-white rounded-2xl border shadow-card overflow-hidden flex flex-col">
+              <div class="p-4 border-b">
+                <input oninput="filterConvs(this.value)" placeholder="بحث في المحادثات..." class="w-full border rounded-xl px-4 py-2 text-sm font-bold">
+              </div>
+              <div id="convList" class="flex-1 overflow-y-auto p-3 space-y-2"></div>
+            </div>
+
+            <div class="lg:col-span-2 bg-white rounded-2xl border shadow-card flex flex-col overflow-hidden">
+              <div class="p-4 border-b flex items-center gap-3 bg-gradient-to-l from-brand-50 to-white">
+                <div id="chatAvatar" class="w-11 h-11 rounded-full av1 text-white grid place-items-center font-black">م</div>
+                <div class="flex-1">
+                  <div id="chatName" class="font-black">—</div>
+                  <div id="chatStatus" class="text-[11px] font-bold text-green-600">● متصل الآن</div>
+                </div>
+                <button onclick="toast('مكالمة صوتية','هذه الميزة ستتوفر في النسخة الكاملة قريباً','info')" class="w-10 h-10 rounded-xl bg-slate-100 grid place-items-center hover:bg-brand-100 transition"><i class="fa-solid fa-phone"></i></button>
+                <button onclick="toast('مكالمة فيديو','هذه الميزة ستتوفر في النسخة الكاملة قريباً','info')" class="w-10 h-10 rounded-xl bg-slate-100 grid place-items-center hover:bg-brand-100 transition"><i class="fa-solid fa-video"></i></button>
+              </div>
+              <div id="chatBody" class="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50 pattern-dark"></div>
+              <div class="p-3 border-t">
+                <div class="flex gap-2 mb-2 overflow-x-auto pb-1" id="quickReplies"></div>
+                <div class="flex gap-2">
+                  <input id="chatInput" onkeydown="if(event.key==='Enter')sendMessage()" placeholder="اكتب رسالتك..." class="flex-1 border rounded-xl px-4 py-3 text-sm font-bold">
+                  <button onclick="sendMessage()" class="grad-btn text-white w-12 rounded-xl grid place-items-center"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- REPORTS -->
+        <section id="view-reports" class="view-section">
+          <div class="mb-5">
+            <h2 class="text-2xl font-black">التقارير وملف الطالب الشامل</h2>
+            <p class="text-sm text-slate-500 font-bold">ولّد تقريراً فورياً قابلاً للطباعة والمشاركة مع ولي الأمر</p>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-4">
+            <div class="bg-white rounded-2xl border shadow-card p-6">
+              <h3 class="font-black mb-4"><i class="fa-solid fa-sliders ms-1 text-brand-600"></i> إعدادات التقرير</h3>
+
+              <label class="text-[13px] font-black text-slate-500">اختر الطالب</label>
+              <select id="reportStudent" onchange="buildReport()" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1 mb-4"></select>
+
+              <label class="text-[13px] font-black text-slate-500">الفترة</label>
+              <select id="reportPeriod" onchange="buildReport()" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1 mb-4">
+                <option>التقرير اليومي</option>
+                <option selected>التقرير الأسبوعي</option>
+                <option>التقرير الشهري</option>
+                <option>تقرير الفصل الدراسي</option>
+              </select>
+
+              <label class="text-[13px] font-black text-slate-500">الأقسام المشمولة</label>
+              <div class="mt-2 space-y-2 text-sm font-bold">
+                <label class="flex items-center gap-2 bg-slate-50 rounded-xl p-2.5 cursor-pointer"><input type="checkbox" checked onchange="buildReport()" class="repChk accent-emerald-600 w-4 h-4" data-k="grades"> سجل العلامات</label>
+                <label class="flex items-center gap-2 bg-slate-50 rounded-xl p-2.5 cursor-pointer"><input type="checkbox" checked onchange="buildReport()" class="repChk accent-emerald-600 w-4 h-4" data-k="behavior"> السلوك والنقاط</label>
+                <label class="flex items-center gap-2 bg-slate-50 rounded-xl p-2.5 cursor-pointer"><input type="checkbox" checked onchange="buildReport()" class="repChk accent-emerald-600 w-4 h-4" data-k="attend"> الحضور</label>
+                <label class="flex items-center gap-2 bg-slate-50 rounded-xl p-2.5 cursor-pointer"><input type="checkbox" checked onchange="buildReport()" class="repChk accent-emerald-600 w-4 h-4" data-k="reco"> التوصيات</label>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 mt-4">
+                <button onclick="window.print()" class="grad-btn text-white py-2.5 rounded-xl font-black text-sm"><i class="fa-solid fa-print ms-1"></i> طباعة</button>
+                <button onclick="shareReport()" class="bg-ink-900 text-white py-2.5 rounded-xl font-black text-sm hover:bg-ink-800 transition"><i class="fa-solid fa-share-nodes ms-1"></i> إرسال للأهل</button>
+              </div>
+            </div>
+
+            <div class="lg:col-span-2">
+              <div id="reportPreview" class="bg-white rounded-2xl border shadow-card overflow-hidden"></div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- bottom mobile bar -->
+  <nav class="no-print lg:hidden fixed bottom-0 inset-x-0 z-40 glass border-t grid grid-cols-5 text-center text-[10px] font-black py-2">
+    <button onclick="switchView('dashboard')" class="py-1"><i class="fa-solid fa-table-cells-large block text-base mb-0.5"></i>الرئيسية</button>
+    <button onclick="switchView('grades')" class="py-1"><i class="fa-solid fa-book-open block text-base mb-0.5"></i>العلامات</button>
+    <button onclick="openModal('grade')" class="py-1"><span class="w-12 h-12 -mt-7 mx-auto grad-btn text-white rounded-full grid place-items-center text-lg shadow-xl"><i class="fa-solid fa-plus"></i></span>رصد</button>
+    <button onclick="switchView('behavior')" class="py-1"><i class="fa-solid fa-heart block text-base mb-0.5"></i>السلوك</button>
+    <button onclick="switchView('messages')" class="py-1"><i class="fa-solid fa-comments block text-base mb-0.5"></i>الرسائل</button>
+  </nav>
+</div>
+
+<!-- NOTIF DRAWER -->
+<div id="notifDrawer" class="hidden fixed inset-0 z-[150]">
+  <div class="absolute inset-0 modal-bg" onclick="toggleNotifDrawer(false)"></div>
+  <div class="absolute left-0 top-0 bottom-0 w-full max-w-sm bg-white shadow-2xl flex flex-col pop-in">
+    <div class="p-5 border-b flex items-center justify-between bg-gradient-to-l from-brand-50 to-white">
+      <div>
+        <h3 class="font-black text-lg">الإشعارات الفورية</h3>
+        <p class="text-[12px] text-slate-400 font-bold">تصل بمجرد الاتصال بالإنترنت</p>
+      </div>
+      <button onclick="toggleNotifDrawer(false)" class="w-9 h-9 rounded-xl bg-slate-100 grid place-items-center hover:bg-red-50 hover:text-red-500 transition"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="p-3 border-b flex gap-2">
+      <button onclick="markAllRead()" class="flex-1 text-[12px] font-black bg-slate-100 py-2 rounded-xl hover:bg-slate-200 transition">تحديد الكل كمقروء</button>
+      <button onclick="simulateLiveEvent()" class="flex-1 text-[12px] font-black bg-ink-900 text-white py-2 rounded-xl hover:bg-brand-600 transition">محاكاة إشعار</button>
+    </div>
+    <div id="notifList" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+  </div>
+</div>
+
+<!-- STUDENT DRAWER -->
+<div id="studentDrawer" class="hidden fixed inset-0 z-[150]">
+  <div class="absolute inset-0 modal-bg" onclick="closeStudentDrawer()"></div>
+  <div class="absolute right-0 top-0 bottom-0 w-full max-w-lg bg-slate-50 shadow-2xl overflow-y-auto pop-in">
+    <div id="studentDrawerBody"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modalOverlay" class="hidden fixed inset-0 z-[160] grid place-items-center p-4">
+  <div class="absolute inset-0 modal-bg" onclick="closeModal()"></div>
+  <div id="modalBox" class="relative bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden pop-in"></div>
+</div>
+
+<div id="printReport" class="p-8"></div>
+
+<script>
+/* =========================================================
+   DATA
+   ========================================================= */
+const SUBJECTS = ['الرياضيات','اللغة العربية','العلوم','اللغة الإنجليزية','التربية الإسلامية','الحاسب الآلي'];
+const AVC = ['av1','av2','av3','av4','av5','av6','av7','av8','av9','av10'];
+
+let STUDENTS = [
+  {id:'ST-101',name:'أحمد محمد الحربي',cls:'الثالث (أ)',age:9,avg:92,behavior:95,attend:98,parent:'محمد الحربي',phone:'0551234567',trend:[85,87,89,90,91,92],radar:[95,90,93,88,96,94]},
+  {id:'ST-102',name:'لينا عبدالله القحطاني',cls:'الثالث (أ)',age:8,avg:96,behavior:98,attend:100,parent:'عبدالله القحطاني',phone:'0552345678',trend:[90,92,93,94,95,96],radar:[98,97,95,96,99,94]},
+  {id:'ST-103',name:'يوسف سعد الغامدي',cls:'الثالث (أ)',age:9,avg:78,behavior:72,attend:88,parent:'سعد الغامدي',phone:'0553456789',trend:[82,80,79,78,77,78],radar:[75,80,72,78,85,76]},
+  {id:'ST-104',name:'مريم خالد الشمري',cls:'الثالث (أ)',age:8,avg:89,behavior:91,attend:96,parent:'خالد الشمري',phone:'0554567890',trend:[84,86,87,88,89,89],radar:[88,92,90,85,93,87]},
+  {id:'ST-105',name:'عمر فهد الدوسري',cls:'الثالث (أ)',age:9,avg:84,behavior:80,attend:92,parent:'فهد الدوسري',phone:'0555678901',trend:[80,81,82,83,84,84],radar:[86,82,84,80,88,83]},
+  {id:'ST-106',name:'جود ناصر المطيري',cls:'الثالث (أ)',age:8,avg:94,behavior:93,attend:99,parent:'ناصر المطيري',phone:'0556789012',trend:[88,90,91,92,93,94],radar:[95,96,93,92,97,91]},
+  {id:'ST-107',name:'فهد علي الزهراني',cls:'الثالث (أ)',age:9,avg:71,behavior:65,attend:85,parent:'علي الزهراني',phone:'0557890123',trend:[76,74,73,72,71,71],radar:[68,72,65,70,78,69]},
+  {id:'ST-108',name:'سارة سامي العتيبي',cls:'الثالث (أ)',age:8,avg:90,behavior:94,attend:97,parent:'سامي العتيبي',phone:'0558901234',trend:[86,87,88,89,90,90],radar:[89,93,91,88,95,89]},
+  {id:'ST-109',name:'كريم وليد الأحمد',cls:'الثالث (أ)',age:9,avg:87,behavior:86,attend:94,parent:'وليد الأحمد',phone:'0559012345',trend:[83,84,85,86,87,87],radar:[88,86,89,84,90,85]},
+  {id:'ST-110',name:'ريناد حسن العمري',cls:'الثالث (أ)',age:8,avg:93,behavior:96,attend:100,parent:'حسن العمري',phone:'0550123456',trend:[89,90,91,92,93,93],radar:[94,95,92,93,98,90]}
+];
+
+let GRADES = [
+  {id:1,sid:'ST-101',subject:'الرياضيات',type:'اختبار قصير',score:10,max:10,date:'اليوم 10:15 ص',teacher:'أ. سالم'},
+  {id:2,sid:'ST-102',subject:'العلوم',type:'مشاركة',score:10,max:10,date:'اليوم 09:40 ص',teacher:'أ. سالم'},
+  {id:3,sid:'ST-103',subject:'الرياضيات',type:'واجب',score:5,max:10,date:'اليوم 10:15 ص',teacher:'أ. سالم'},
+  {id:4,sid:'ST-104',subject:'اللغة العربية',type:'اختبار قصير',score:9,max:10,date:'اليوم 08:30 ص',teacher:'أ. نورة'},
+  {id:5,sid:'ST-106',subject:'اللغة الإنجليزية',type:'نشاط',score:10,max:10,date:'أمس',teacher:'أ. سارة'},
+  {id:6,sid:'ST-105',subject:'العلوم',type:'اختبار قصير',score:7,max:10,date:'أمس',teacher:'أ. سالم'},
+  {id:7,sid:'ST-110',subject:'التربية الإسلامية',type:'اختبار فصلي',score:19,max:20,date:'أمس',teacher:'أ. خالد'},
+  {id:8,sid:'ST-107',subject:'اللغة العربية',type:'واجب',score:4,max:10,date:'أمس',teacher:'أ. نورة'},
+  {id:9,sid:'ST-109',subject:'الحاسب الآلي',type:'نشاط',score:9,max:10,date:'قبل يومين',teacher:'أ. فهد'},
+  {id:10,sid:'ST-108',subject:'الرياضيات',type:'اختبار قصير',score:9,max:10,date:'قبل يومين',teacher:'أ. سالم'},
+  {id:11,sid:'ST-101',subject:'العلوم',type:'مشاركة',score:9,max:10,date:'قبل يومين',teacher:'أ. سالم'},
+  {id:12,sid:'ST-102',subject:'الرياضيات',type:'اختبار فصلي',score:20,max:20,date:'الأسبوع الماضي',teacher:'أ. سالم'}
+];
+
+let BEHAVIORS = [
+  {id:1,sid:'ST-102',type:'positive',title:'مشاركة استثنائية في العلوم',desc:'أجابت إجابة نموذجية وساعدت زميلتها في التجربة العملية.',points:5,date:'اليوم 09:45 ص',by:'أ. سالم',badge:'نجمة العلوم'},
+  {id:2,sid:'ST-101',type:'positive',title:'التزام تام بالواجبات',desc:'أحضر جميع واجبات الأسبوع مرتبة وكاملة.',points:5,date:'اليوم 08:10 ص',by:'أ. سالم',badge:'المثابر'},
+  {id:3,sid:'ST-103',type:'negative',title:'تشتت أثناء شرح الرياضيات',desc:'تحدث مع زميله 3 مرات أثناء الشرح. التوصية: إجلاسه في المقدمة ومتابعة تركيزه منزلياً.',points:-3,date:'اليوم 10:20 ص',by:'أ. سالم',badge:null},
+  {id:4,sid:'ST-106',type:'positive',title:'مساعدة زملاء الصف',desc:'تطوعت لتنظيم المكتبة الصفية في الفسحة.',points:4,date:'اليوم 11:00 ص',by:'أ. نورة',badge:'المتعاون'},
+  {id:5,sid:'ST-107',type:'negative',title:'نسيان الأدوات المدرسية',desc:'نسي المقلمة للمرة الثانية هذا الأسبوع. التوصية: تجهيز الحقيبة مساءً مع الأهل.',points:-2,date:'أمس',by:'أ. سالم',badge:null},
+  {id:6,sid:'ST-110',type:'positive',title:'قيادة مجموعة النشاط',desc:'قادت فريقها للفوز في مسابقة الإملاء الصفية.',points:5,date:'أمس',by:'أ. نورة',badge:'القائدة'},
+  {id:7,sid:'ST-105',type:'positive',title:'تحسن ملحوظ في الانضباط',desc:'أسبوع كامل دون أي ملاحظة — استمرار رائع!',points:4,date:'أمس',by:'أ. سالم',badge:'المتطور'}
+];
+
+let VIOLATIONS = [
+  {id:1,sid:'ST-107',type:'مشاجرة لفظية مع زميل',severity:'high',desc:'تبادل ألفاظ غير لائقة مع زميل في الفسحة أمام المشرف. تم الفصل الفوري والتهدئة.',date:'قبل يومين',status:'قيد المراجعة',action:'استدعاء ولي الأمر + جلسة إرشادية'},
+  {id:2,sid:'ST-103',type:'إزعاج متكرر داخل الحصة',severity:'medium',desc:'مقاطعة الشرح أكثر من 5 مرات رغم التنبيه. يؤثر على سير الحصة.',date:'أمس',status:'تم التواصل مع ولي الأمر',action:'خطة متابعة أسبوعية مشتركة'},
+  {id:3,sid:'ST-105',type:'تأخر عن الطابور الصباحي',severity:'low',desc:'تأخر 10 دقائق عن الطابور دون عذر. التنبيه الأول.',date:'اليوم',status:'تمت المعالجة',action:'تنبيه شفوي + تعهد'},
+  {id:4,sid:'ST-107',type:'عدم إحضار الواجب 3 مرات',severity:'medium',desc:'تراكم الواجبات غير المنجزة في مادتي الرياضيات والعربية.',date:'الأسبوع الماضي',status:'مغلق',action:'جدول متابعة منزلية — تحسن جزئي'}
+];
+
+let NOTIFS = [
+  {id:1,title:'درجة جديدة — أحمد الحربي',body:'حصل على 10/10 في اختبار الرياضيات القصير',time:'قبل 12 دقيقة',type:'grade',read:false},
+  {id:2,title:'ملاحظة سلوكية إيجابية',body:'لينا القحطاني: مشاركة استثنائية +5 نقاط',time:'قبل 35 دقيقة',type:'behavior',read:false},
+  {id:3,title:'تنبيه تحسيني',body:'يوسف الغامدي: تشتت أثناء الشرح — يرجى المتابعة',time:'قبل ساعة',type:'warn',read:false},
+  {id:4,title:'تذكير: اجتماع أولياء الأمور',body:'الخميس القادم 5 مساءً عبر التطبيق',time:'أمس',type:'info',read:false}
+];
+
+let CONVS = [
+  {id:'c1',sid:'ST-101',name:'محمد الحربي (والد أحمد)',online:true,unread:2,msgs:[
+    {from:'parent',text:'السلام عليكم أستاذ سالم، لاحظت تحسن أحمد في الرياضيات، شكراً لمتابعتك',time:'09:00 ص'},
+    {from:'teacher',text:'وعليكم السلام، أحمد متميز فعلاً! حصل اليوم على العلامة الكاملة. أنصح بتشجيعه على مسائل التحدي ص 45',time:'09:15 ص'},
+    {from:'parent',text:'ممتاز! هل يحتاج تقوية في الإنجليزية؟',time:'09:20 ص'}
+  ]},
+  {id:'c2',sid:'ST-103',name:'سعد الغامدي (والد يوسف)',online:true,unread:1,msgs:[
+    {from:'teacher',text:'أستاذ سعد، يوسف يتشتت كثيراً في الحصص الأخيرة. هل ينام مبكراً؟',time:'أمس'},
+    {from:'parent',text:'للأسف يسهر على الجوال. سنلتزم بموعد نوم 9 مساءً من اليوم',time:'أمس'},
+    {from:'teacher',text:'ممتاز، سأتابعه هذا الأسبوع وأوافيك يومياً عبر التطبيق',time:'أمس'}
+  ]},
+  {id:'c3',sid:'ST-102',name:'عبدالله القحطاني (والد لينا)',online:false,unread:0,msgs:[
+    {from:'parent',text:'شكراً على شهادة نجمة العلوم! لينا سعيدة جداً',time:'قبل يومين'},
+    {from:'teacher',text:'تستحقها بجدارة، من أفضل طالبات الصف',time:'قبل يومين'}
+  ]}
+];
+
+let FEED = [
+  {icon:'fa-book-open',color:'indigo',text:'<b>أحمد الحربي</b> حصل على <b>10/10</b> في الرياضيات',time:'قبل 12 دقيقة'},
+  {icon:'fa-star',color:'amber',text:'<b>لينا القحطاني</b> حصلت على شارة نجمة العلوم (+5)',time:'قبل 35 دقيقة'},
+  {icon:'fa-lightbulb',color:'orange',text:'ملاحظة تحسينية لـ <b>يوسف الغامدي</b> — تشتت أثناء الشرح',time:'قبل ساعة'},
+  {icon:'fa-calendar-check',color:'green',text:'اكتمل تحضير <b>الثالث (أ)</b> — الحضور 100%',time:'قبل ساعتين'},
+  {icon:'fa-trophy',color:'yellow',text:'<b>ريناد العمري</b> قادت فريقها للفوز بمسابقة الإملاء',time:'أمس'}
+];
+
+const QUICK = ['شكراً لمتابعتك','سأتابع ذلك منزلياً','هل يمكن تحديد موعد؟','ممتاز، استمر','تم الاستلام، شكراً'];
+
+/* =========================================================
+   STATE + HELPERS
+   ========================================================= */
+const state = {
+  role:'teacher', view:'dashboard', online:true, queue:[],
+  behavFilter:'all', violFilter:'all', activeConv:'c1',
+  charts:{}, parentChild:'ST-101', attendToday:{}, initialized:false
+};
+
+STUDENTS.forEach(function(s){ state.attendToday[s.id] = 'present'; });
+state.attendToday['ST-107'] = 'late';
+state.attendToday['ST-103'] = 'absent';
+
+function $(id){ return document.getElementById(id); }
+function studentById(id){ return STUDENTS.find(function(s){ return s.id === id; }); }
+function avgArr(a){ return a.reduce(function(x,y){ return x + y; }, 0) / (a.length || 1); }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); }
+
+function avatarHTML(s, size){
+  size = size || 'w-11 h-11 text-base';
+  const idx = STUDENTS.indexOf(s);
+  const cls = AVC[(idx < 0 ? 0 : idx) % AVC.length];
+  return '<div class="' + size + ' rounded-full ' + cls + ' text-white grid place-items-center font-black shrink-0 shadow">' + esc(s.name.trim().charAt(0)) + '</div>';
+}
+
+function todayStr(){
+  try { return new Date().toLocaleDateString('ar-SA',{weekday:'long',day:'numeric',month:'long',year:'numeric'}); }
+  catch(e){ return 'اليوم'; }
+}
+function nowTime(){
+  try { return new Date().toLocaleTimeString('ar-SA',{hour:'numeric',minute:'2-digit'}); }
+  catch(e){ return 'الآن'; }
+}
+
+/* =========================================================
+   LANDING MOTION
+   ========================================================= */
+const io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){ e.target.classList.add('vis'); io.unobserve(e.target); }
+  });
+},{threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal, .reveal-x, .stagger').forEach(function(el){ io.observe(el); });
+
+const cio = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      const el = e.target, target = parseFloat(el.dataset.target || '0');
+      let cur = 0;
+      const step = Math.max(1, Math.ceil(target / 38));
+      const iv = setInterval(function(){
+        cur += step;
+        if(cur >= target){ cur = target; clearInterval(iv); }
+        el.textContent = cur;
+      }, 32);
+      cio.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.counter').forEach(function(el){ cio.observe(el); });
+
+const miniNotifs = [
+  {c:'bg-green-100 text-green-600', i:'fa-circle-check', t:'تم رصد الحضور', d:'أحمد حاضر — 7:28 ص'},
+  {c:'bg-indigo-100 text-indigo-600', i:'fa-book-open', t:'درجة جديدة: 10/10', d:'الرياضيات — اختبار قصير'},
+  {c:'bg-amber-100 text-amber-600', i:'fa-star', t:'+5 نقاط سلوك', d:'مشاركة متميزة في العلوم'}
+];
+let miniIdx = 0;
+setInterval(function(){
+  const area = $('miniNotifArea');
+  const landing = $('landing');
+  if(!area || landing.classList.contains('hidden')) return;
+  const n = miniNotifs[miniIdx % miniNotifs.length];
+  miniIdx++;
+  area.innerHTML =
+    '<div class="mini-notif bg-white rounded-2xl shadow-2xl border p-2.5 flex items-center gap-2">' +
+      '<div class="w-8 h-8 rounded-xl ' + n.c + ' grid place-items-center text-sm shrink-0"><i class="fa-solid ' + n.i + '"></i></div>' +
+      '<div class="min-w-0"><div class="font-black text-[11px]">' + n.t + '</div><div class="text-[10px] text-slate-500 font-bold truncate">' + n.d + '</div></div>' +
+      '<div class="ms-auto text-[9px] text-slate-400 font-bold">الآن</div>' +
+    '</div>';
+}, 4200);
+
+/* hero cursor parallax */
+const hero = document.getElementById('hero');
+if(hero && window.matchMedia('(pointer:fine)').matches){
+  hero.addEventListener('mousemove', function(ev){
+    const r = hero.getBoundingClientRect();
+    const px = (ev.clientX - r.left) / r.width - 0.5;
+    const py = (ev.clientY - r.top) / r.height - 0.5;
+    hero.querySelectorAll('.parallax').forEach(function(el){
+      const d = parseFloat(el.dataset.depth || '10');
+      el.style.transform = 'translate3d(' + (px * d) + 'px,' + (py * d) + 'px,0)';
+    });
+  });
+  hero.addEventListener('mouseleave', function(){
+    hero.querySelectorAll('.parallax').forEach(function(el){ el.style.transform = 'translate3d(0,0,0)'; });
+  });
+}
+
+/* magnetic buttons */
+if(window.matchMedia('(pointer:fine)').matches){
+  document.querySelectorAll('.magnet').forEach(function(btn){
+    btn.addEventListener('mousemove', function(e){
+      const r = btn.getBoundingClientRect();
+      btn.style.transform = 'translate3d(' + ((e.clientX - r.left - r.width/2) * 0.16) + 'px,' + ((e.clientY - r.top - r.height/2) * 0.22) + 'px,0)';
+    });
+    btn.addEventListener('mouseleave', function(){ btn.style.transform = 'translate3d(0,0,0)'; });
+  });
+}
+
+function simulateSync(btn){
+  let v = 0;
+  btn.disabled = true;
+  btn.style.opacity = '.65';
+  const iv = setInterval(function(){
+    v += 0.2;
+    $('syncTimer').textContent = v.toFixed(1) + ' ث';
+    if(v >= 2.4){
+      clearInterval(iv);
+      $('syncTimer').textContent = 'تمت المزامنة ✓';
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      setTimeout(function(){ $('syncTimer').textContent = '0.0 ث'; }, 1800);
+    }
+  }, 90);
+}
+
+function downloadDoc(){
+  const lines = [
+    'مقترح مشروع: مستقبلهم — منصة المتابعة والرقابة المدرسية الذكية',
+    'إعداد: عماد العلي',
+    '================================================================',
+    '',
+    '1) الرؤية:',
+    '   بيئة رقابية وتوجيهية مشتركة بين المدرسة والمنزل، تُمكّن أولياء الأمور من متابعة أبنائهم لحظياً.',
+    '',
+    '2) الأهداف:',
+    '   - تقليل الفجوة التواصلية بين المعلم وولي الأمر.',
+    '   - رصد التراجع الأكاديمي والسلوكي مبكراً.',
+    '   - تحفيز الطلاب عبر نظام النقاط والشارات.',
+    '   - توفير تقارير دقيقة وفورية للإدارة.',
+    '',
+    '3) الواجهات:',
+    '   - بوابة ولي الأمر: تحديثات فورية، متابعة الدرجات والسلوك، الرسائل.',
+    '   - واجهة المعلم: رصد العلامات، الحضور، الملاحظات، التجاوزات.',
+    '   - لوحة الإدارة: مؤشرات المدرسة، التقارير، الحالات المفتوحة.',
+    '',
+    '4) الوحدات الوظيفية:',
+    '   - سجل العلامات والتقييم اليومي.',
+    '   - لوحة السلوك والملاحظات الفورية.',
+    '   - نظام رصد التجاوزات والأفعال المسيئة.',
+    '   - مؤشر الأداء والتحليل البياني.',
+    '',
+    '5) المتطلبات الفنية:',
+    '   - قاعدة بيانات مركزية مشفّرة مع صلاحيات حسب الدور.',
+    '   - إشعارات فورية (Push) عبر Wi-Fi وبيانات الهاتف.',
+    '   - وضع عدم الاتصال مع مزامنة لاحقة.',
+    '   - تقارير قابلة للطباعة والتصدير (PDF / CSV).',
+    '',
+    '6) مؤشرات النجاح:',
+    '   - رضا أولياء الأمور >= 95%',
+    '   - زمن وصول الإشعار <= 12 ثانية',
+    '   - انخفاض التجاوزات >= 50% خلال فصل دراسي',
+    '',
+    '7) خطة التنفيذ:',
+    '   المرحلة 1: التصميم وبناء قاعدة البيانات.',
+    '   المرحلة 2: التطوير والاختبار الميداني.',
+    '   المرحلة 3: التدريب والتوسّع.'
+  ].join('\n');
+
+  try{
+    const blob = new Blob(["\ufeff" + lines], {type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'مستقبـلهم-مقترح-المشروع.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+  }catch(e){}
+
+  toast('تم تجهيز الوثيقة','بدأ تنزيل مقترح مشروع «مستقبلهم» — عماد العلي','success');
+}
+
+/* =========================================================
+   TOASTS / NOTIFICATIONS
+   ========================================================= */
+function toast(title, body, type){
+  type = type || 'success';
+  const map = {
+    success:['bg-green-500','fa-circle-check'],
+    info:['bg-indigo-500','fa-circle-info'],
+    warn:['bg-amber-500','fa-triangle-exclamation'],
+    error:['bg-red-500','fa-circle-xmark']
+  };
+  const c = map[type] || map.success;
+  const el = document.createElement('div');
+  el.className = 'toast-in bg-white rounded-2xl shadow-2xl border p-4 flex gap-3 items-start';
+  el.innerHTML =
+    '<div class="w-10 h-10 ' + c[0] + ' text-white rounded-xl grid place-items-center shrink-0"><i class="fa-solid ' + c[1] + '"></i></div>' +
+    '<div class="flex-1 min-w-0"><div class="font-black text-sm">' + esc(title) + '</div><div class="text-[12px] text-slate-500 font-bold mt-0.5">' + esc(body) + '</div></div>' +
+    '<button onclick="this.parentElement.remove()" class="text-slate-300 hover:text-red-500 transition"><i class="fa-solid fa-xmark"></i></button>';
+  $('toastContainer').appendChild(el);
+  try{
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if(Ctx){
+      const ctx = new Ctx();
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value = 880; g.gain.value = 0.06;
+      o.start(); o.stop(ctx.currentTime + 0.16);
+    }
+  }catch(e){}
+  setTimeout(function(){
+    el.style.opacity = '0'; el.style.transition = 'opacity .4s';
+    setTimeout(function(){ el.remove(); }, 420);
+  }, 4600);
+}
+
+function addFeed(icon, color, text, time){
+  FEED.unshift({icon:icon, color:color, text:text, time:time || 'الآن'});
+  if(FEED.length > 25) FEED.pop();
+  if(state.view === 'dashboard') renderFeed();
+}
+
+function pushNotif(title, body, type){
+  type = type || 'info';
+  NOTIFS.unshift({id:Date.now(), title:title, body:body, time:'الآن', type:type, read:false});
+  if(NOTIFS.length > 18) NOTIFS.pop();
+  renderNotifs();
+  toast(title, body, type === 'warn' ? 'warn' : (type === 'grade' ? 'success' : 'info'));
+  const icon = type === 'grade' ? 'fa-book-open' : (type === 'behavior' ? 'fa-star' : (type === 'warn' ? 'fa-triangle-exclamation' : 'fa-bell'));
+  const color = type === 'grade' ? 'indigo' : (type === 'behavior' ? 'amber' : (type === 'warn' ? 'orange' : 'green'));
+  addFeed(icon, color, '<b>' + esc(title) + '</b> — ' + esc(body), 'الآن');
+}
+
+function renderNotifs(){
+  const icons = {
+    grade:['bg-indigo-100 text-indigo-600','fa-book-open'],
+    behavior:['bg-amber-100 text-amber-600','fa-star'],
+    warn:['bg-red-100 text-red-600','fa-triangle-exclamation'],
+    info:['bg-brand-100 text-brand-600','fa-bell']
+  };
+  $('notifList').innerHTML = NOTIFS.map(function(n){
+    const ic = icons[n.type] || icons.info;
+    return '<div class="rounded-2xl border p-3.5 flex gap-3 ' + (n.read ? 'bg-white' : 'bg-brand-50/60 border-brand-200') + '">' +
+      '<div class="w-10 h-10 ' + ic[0] + ' rounded-xl grid place-items-center shrink-0"><i class="fa-solid ' + ic[1] + '"></i></div>' +
+      '<div class="flex-1 min-w-0"><div class="font-black text-[13px]">' + esc(n.title) + '</div>' +
+      '<div class="text-[12px] text-slate-500 font-bold">' + esc(n.body) + '</div>' +
+      '<div class="text-[10px] text-slate-400 font-bold mt-1">' + esc(n.time) + (n.read ? '' : ' • <span class="text-brand-600">جديد</span>') + '</div></div></div>';
+  }).join('');
+  const u = NOTIFS.filter(function(n){ return !n.read; }).length;
+  $('notifBadge').textContent = u;
+  $('notifBadge').style.display = u ? 'grid' : 'none';
+}
+
+function toggleNotifDrawer(open){ $('notifDrawer').classList.toggle('hidden', !open); }
+function markAllRead(){
+  NOTIFS.forEach(function(n){ n.read = true; });
+  renderNotifs();
+  toast('تم','تم تحديد جميع الإشعارات كمقروءة','info');
+}
+
+/* =========================================================
+   CONNECTION
+   ========================================================= */
+function toggleOnline(){
+  state.online = !state.online;
+  const b = $('connBtn');
+  if(state.online){
+    b.className = 'flex items-center gap-2 px-3 py-2 rounded-xl font-black text-[12px] bg-green-50 text-green-700 border border-green-200 transition';
+    $('connLabel').textContent = 'متصل • Wi-Fi';
+    $('offlineBanner').classList.add('hidden');
+    if(state.queue.length){
+      toast('تمت المزامنة','تم إرسال ' + state.queue.length + ' تحديثاً معلقاً بنجاح','success');
+      pushNotif('اكتملت المزامنة','تم إرسال جميع التحديثات المعلقة لأولياء الأمور','info');
+      state.queue = [];
+      $('queueCount').textContent = '0';
+    }else{
+      toast('عاد الاتصال','المزامنة الفورية مفعّلة الآن','success');
+    }
+  }else{
+    b.className = 'flex items-center gap-2 px-3 py-2 rounded-xl font-black text-[12px] bg-amber-50 text-amber-700 border border-amber-300 transition';
+    $('connLabel').textContent = 'غير متصل';
+    $('offlineBanner').classList.remove('hidden');
+    toast('انقطع الاتصال','سيتم حفظ التحديثات ومزامنتها تلقائياً عند عودة الإنترنت','warn');
+  }
+}
+
+function queueOrSend(label){
+  if(!state.online){
+    state.queue.push(label);
+    $('queueCount').textContent = state.queue.length;
+    return false;
+  }
+  return true;
+}
+
+/* =========================================================
+   APP ENTRY / ROLES
+   ========================================================= */
+function enterApp(role, view){
+  state.role = role || 'teacher';
+  $('landing').classList.add('hidden');
+  $('app').classList.remove('hidden');
+  window.scrollTo(0,0);
+  applyRole();
+  initApp();
+  if(view) switchView(view);
+  toast('مرحباً بك في مستقبلهم','تم الاتصال بنجاح — جميع الأنظمة تعمل لحظياً عبر Wi-Fi','success');
+  pushNotif('تسجيل دخول ناجح',
+    state.role === 'parent' ? 'مرحباً بك، يمكنك الآن متابعة ابنك لحظياً' : 'تم تفعيل المزامنة الفورية للصف الثالث (أ)',
+    'info');
+}
+
+function backToLanding(){
+  $('app').classList.add('hidden');
+  $('landing').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+function applyRole(){
+  const map = {
+    teacher:{n:'أ. سالم القحطاني', s:'الثالث (أ) • 10 طلاب', l:'لوحة المعلم', a:'س', h:'صباح الخير، أستاذ سالم'},
+    parent:{n:'محمد الحربي', s:'ولي أمر أحمد • الثالث (أ)', l:'بوابة ولي الأمر', a:'م', h:'مرحباً أستاذ محمد'},
+    admin:{n:'أ. منيرة الدوسري', s:'مديرة المدرسة', l:'لوحة الإدارة', a:'م', h:'أهلاً أستاذة منيرة'}
+  };
+  const r = map[state.role] || map.teacher;
+  $('sideUserName').textContent = r.n;
+  $('sideUserSub').textContent = r.s;
+  $('sideRoleLabel').textContent = r.l;
+  $('sideAvatar').textContent = r.a;
+  $('topAvatar').textContent = r.a;
+  $('dashHello').textContent = r.h;
+
+  ['teacher','parent','admin'].forEach(function(k){
+    const btn = $('roleBtn' + k.charAt(0).toUpperCase() + k.slice(1));
+    if(btn) btn.className = 'flex-1 text-[11px] font-black py-1.5 rounded-lg transition ' + (k === state.role ? 'bg-ink-900 text-white' : 'bg-white border');
+  });
+
+  if(state.role === 'parent'){
+    $('dashWelcome').textContent = 'متابعة أحمد اليوم — كل التحديثات تصلك لحظياً';
+    $('dashSub').textContent = 'متصل الآن • آخر تحديث: درجة الرياضيات 10/10 قبل 12 دقيقة';
+    $('navStudentCount').textContent = '1';
+  }else if(state.role === 'admin'){
+    $('dashWelcome').textContent = 'نظرة المدرسة — 4 فصول، 128 طالباً، 12 معلماً';
+    $('dashSub').textContent = '3 حالات مفتوحة تحتاج متابعة • مؤشر الانضباط 91%';
+    $('navStudentCount').textContent = String(STUDENTS.length);
+  }else{
+    $('dashWelcome').textContent = 'اليوم: ' + todayStr() + ' • الثالث (أ) — كل الأنظمة تعمل لحظياً';
+    $('dashSub').textContent = 'تمت مزامنة 24 تحديثاً اليوم • آخر مزامنة قبل 12 ثانية';
+    $('navStudentCount').textContent = String(STUDENTS.length);
+  }
+}
+
+function switchRole(r){
+  state.role = r;
+  applyRole();
+  renderAll();
+  toast('تم تبديل الدور','أنت الآن تتصفح بصفة: ' + (r === 'teacher' ? 'معلم' : (r === 'parent' ? 'ولي أمر' : 'إدارة')),'info');
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+function initApp(){
+  $('todayDate').textContent = todayStr();
+  $('attDateLabel').textContent = todayStr();
+
+  if(!state.initialized){
+    state.initialized = true;
+    const gs = $('gradeSubjectFilter');
+    SUBJECTS.forEach(function(s){ gs.insertAdjacentHTML('beforeend','<option>' + s + '</option>'); });
+
+    const gstu = $('gradeStudentFilter');
+    STUDENTS.forEach(function(s){ gstu.insertAdjacentHTML('beforeend','<option value="' + s.id + '">' + esc(s.name) + '</option>'); });
+
+    const an = $('analyticsStudent'), rp = $('reportStudent');
+    STUDENTS.forEach(function(s){
+      an.insertAdjacentHTML('beforeend','<option value="' + s.id + '">' + esc(s.name) + '</option>');
+      rp.insertAdjacentHTML('beforeend','<option value="' + s.id + '">' + esc(s.name) + '</option>');
+    });
+    an.value = 'ST-101';
+    rp.value = 'ST-101';
+
+    if(window.Chart) Chart.defaults.font.family = 'Tajawal';
+  }
+
+  renderConvs();
+  selectConv(state.activeConv);
+  renderQuick();
+  renderAll();
+}
+
+function renderAll(){
+  renderDashboard();
+  renderStudents();
+  renderGrades();
+  renderBehavior();
+  renderViolations();
+  renderAnalytics();
+  renderAttendance();
+  buildReport();
+  renderNotifs();
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+const TITLES = {
+  dashboard:'لوحة القيادة', students:'الطلاب', grades:'سجل العلامات',
+  behavior:'السلوك اليومي', violations:'رصد التجاوزات', analytics:'التحليل البياني',
+  attendance:'الحضور والغياب', messages:'الرسائل', reports:'التقارير'
+};
+
+function switchView(v){
+  state.view = v;
+  document.querySelectorAll('.view-section').forEach(function(s){ s.classList.remove('active'); });
+  const sec = $('view-' + v);
+  if(sec) sec.classList.add('active');
+  document.querySelectorAll('#sideNav .side-link').forEach(function(b){
+    b.classList.toggle('active', b.dataset.view === v);
+  });
+  $('viewTitle').textContent = TITLES[v] || '';
+  $('mobileNav').classList.add('hidden');
+
+  if(v === 'dashboard') renderDashboard();
+  if(v === 'analytics') renderAnalytics();
+  if(v === 'grades') renderGrades();
+  if(v === 'attendance') renderAttendance();
+  if(v === 'messages') renderChat();
+
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function globalSearchGo(q){
+  if(!q || q.length < 1) return;
+  switchView('students');
+  $('studentSearch').value = q;
+  renderStudents();
+}
+
+/* =========================================================
+   CHARTS
+   ========================================================= */
+function mkChart(key, id, cfg){
+  if(state.charts[key]){ try{ state.charts[key].destroy(); }catch(e){} }
+  const c = $(id);
+  if(!c || typeof Chart === 'undefined') return;
+  state.charts[key] = new Chart(c, cfg);
+}
+
+const GRID = {color:'#f1f5f9'};
+const TICK = {font:{size:10, weight:'bold'}};
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+function renderDashboard(){
+  const list = state.role === 'parent' ? STUDENTS.filter(function(s){ return s.id === state.parentChild; }) : STUDENTS.slice();
+  const avg = avgArr(list.map(function(s){ return s.avg; }));
+  const beh = Math.round(avgArr(list.map(function(s){ return s.behavior; })));
+  const att = avgArr(list.map(function(s){ return s.attend; }));
+
+  $('kpiAvg').textContent = avg.toFixed(1) + '%';
+  $('kpiBehav').textContent = beh;
+  $('kpiAttend').textContent = att.toFixed(1) + '%';
+  $('kpiStudents').textContent = state.role === 'parent' ? 1 : (state.role === 'admin' ? STUDENTS.length : STUDENTS.length);
+  $('miniAvg').textContent = avg.toFixed(0) + '%';
+  $('miniAttend').textContent = att.toFixed(0) + '%';
+  $('miniBehav').textContent = '+' + beh;
+  $('healthScore').textContent = Math.round((avg + beh + att) / 3);
+  $('healthBar').style.width = Math.round((avg + beh + att) / 3) + '%';
+
+  const pend = VIOLATIONS.filter(function(v){ return v.status !== 'مغلق' && v.status !== 'تمت المعالجة'; }).length;
+  $('kpiViolPill').textContent = pend + ' قيد المعالجة';
+  $('navViolCount').textContent = pend;
+
+  const top = STUDENTS.slice().sort(function(a,b){ return (b.avg + b.behavior) - (a.avg + a.behavior); }).slice(0,5);
+  const medals = ['🥇','🥈','🥉','4','5'];
+  $('leaderboard').innerHTML = top.map(function(s,i){
+    return '<div class="leader-row flex items-center gap-3 p-2.5 rounded-2xl border cursor-pointer hover:shadow-card hover:-translate-y-0.5 transition" onclick="openStudent(\'' + s.id + '\')">' +
+      avatarHTML(s, 'w-10 h-10 text-sm') +
+      '<div class="flex-1 min-w-0"><div class="font-black text-[13px] truncate">' + esc(s.name) + '</div>' +
+      '<div class="text-[11px] text-slate-400 font-bold">معدل ' + s.avg + '% • سلوك ' + s.behavior + '</div></div>' +
+      '<div class="font-black ' + (i < 3 ? 'text-xl' : 'text-slate-300') + '">' + medals[i] + '</div></div>';
+  }).join('');
+
+  renderFeed();
+
+  const pos = BEHAVIORS.filter(function(b){ return b.type === 'positive'; }).length;
+  const neg = BEHAVIORS.filter(function(b){ return b.type === 'negative'; }).length;
+  $('posCount').textContent = pos + ' إيجابي';
+  $('negCount').textContent = neg + ' للتحسين';
+
+  mkChart('donut','chBehavDonut',{
+    type:'doughnut',
+    data:{ labels:['إيجابي','يحتاج تحسين'], datasets:[{ data:[pos, neg], backgroundColor:['#10b981','#f59e0b'], borderWidth:0, hoverOffset:8 }] },
+    options:{
+      responsive:true, maintainAspectRatio:false, cutout:'68%',
+      plugins:{ legend:{ position:'bottom', labels:{ boxWidth:12, font:{size:11, weight:'bold'} } } }
+    }
+  });
+
+  const s1 = studentById('ST-101');
+  mkChart('trend','chTrend',{
+    type:'line',
+    data:{
+      labels:['الأسبوع 1','الأسبوع 2','الأسبوع 3','الأسبوع 4','الأسبوع 5','الحالي'],
+      datasets:[
+        { label:'متوسط الصف', data:[82,83.5,84,85.5,86,87.4], borderColor:'#cbd5e1', backgroundColor:'rgba(203,213,225,.25)', fill:true, tension:.45, pointRadius:3, borderWidth:2 },
+        { label:'أحمد الحربي', data:s1.trend, borderColor:'#10b981', backgroundColor:'rgba(16,185,129,.18)', fill:true, tension:.45, pointBackgroundColor:'#10b981', pointRadius:4, borderWidth:3 }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ position:'bottom', labels:{ boxWidth:14, font:{size:11, weight:'bold'} } } },
+      scales:{ y:{ min:70, max:100, grid:GRID }, x:{ grid:{display:false}, ticks:TICK } }
+    }
+  });
+}
+
+function renderFeed(){
+  const cm = {
+    indigo:'bg-indigo-100 text-indigo-600', amber:'bg-amber-100 text-amber-600',
+    orange:'bg-orange-100 text-orange-600', green:'bg-green-100 text-green-600',
+    yellow:'bg-yellow-100 text-yellow-600', red:'bg-red-100 text-red-600'
+  };
+  $('liveFeed').innerHTML = FEED.slice(0,12).map(function(f){
+    return '<div class="flex gap-3 items-start bg-slate-50 hover:bg-brand-50/60 rounded-2xl p-3 transition border border-transparent hover:border-brand-100">' +
+      '<div class="w-9 h-9 ' + (cm[f.color] || cm.green) + ' rounded-xl grid place-items-center shrink-0"><i class="fa-solid ' + f.icon + ' text-sm"></i></div>' +
+      '<div class="flex-1 text-[13px] font-bold text-slate-600">' + f.text + '</div>' +
+      '<div class="text-[10px] text-slate-400 font-bold shrink-0">' + esc(f.time) + '</div></div>';
+  }).join('');
+}
+
+const LIVE_POOL = [
+  { t:'grade', title:'درجة جديدة', gen:function(){
+      const s = STUDENTS[Math.floor(Math.random()*STUDENTS.length)];
+      const sc = 7 + Math.floor(Math.random()*4);
+      return { title:'درجة جديدة — ' + s.name, body:s.name + ' حصل على ' + sc + '/10 في ' + SUBJECTS[Math.floor(Math.random()*SUBJECTS.length)], type:'grade' };
+    }},
+  { t:'behavior', title:'تعزيز إيجابي', gen:function(){
+      const s = STUDENTS[Math.floor(Math.random()*STUDENTS.length)];
+      return { title:'تعزيز إيجابي — ' + s.name, body:s.name + ': مشاركة متميزة +5 نقاط', type:'behavior' };
+    }},
+  { t:'info', title:'تحديث الحضور', gen:function(){
+      return { title:'تحديث الحضور', body:'تم تأكيد حضور جميع طلاب الثالث (أ)', type:'info' };
+    }},
+  { t:'warn', title:'تنبيه تحسيني', gen:function(){
+      const s = STUDENTS[Math.floor(Math.random()*STUDENTS.length)];
+      return { title:'تنبيه تحسيني — ' + s.name, body:s.name + ': يرجى متابعة الواجبات المنزلية', type:'warn' };
+    }}
+];
+
+function simulateLiveEvent(){
+  const e = LIVE_POOL[Math.floor(Math.random()*LIVE_POOL.length)];
+  const r = e.gen();
+  if(!queueOrSend(r.title)){
+    toast('حُفظ في الانتظار','سيُرسل هذا التحديث عند عودة الاتصال','warn');
+    return;
+  }
+  pushNotif(r.title, r.body, r.type);
+}
+
+/* =========================================================
+   STUDENTS
+   ========================================================= */
+function renderStudents(){
+  const q = (($('studentSearch') && $('studentSearch').value) || '').trim();
+  const sort = ($('studentSort') && $('studentSort').value) || 'avg';
+  let list = STUDENTS.slice();
+
+  if(state.role === 'parent') list = list.filter(function(s){ return s.id === state.parentChild; });
+  if(q) list = list.filter(function(s){ return s.name.indexOf(q) !== -1 || s.id.toLowerCase().indexOf(q.toLowerCase()) !== -1; });
+
+  if(sort === 'avg') list.sort(function(a,b){ return b.avg - a.avg; });
+  else if(sort === 'behavior') list.sort(function(a,b){ return b.behavior - a.behavior; });
+  else list.sort(function(a,b){ return a.name.localeCompare(b.name,'ar'); });
+
+  $('studentsGrid').innerHTML = list.map(function(s){
+    const trendUp = s.trend[s.trend.length-1] >= s.trend[0];
+    return '<div onclick="openStudent(\'' + s.id + '\')" class="bg-white rounded-3xl border shadow-card p-5 cursor-pointer card-hover">' +
+      '<div class="flex items-center gap-3">' +
+        avatarHTML(s,'w-14 h-14 text-xl') +
+        '<div class="flex-1 min-w-0"><div class="font-black truncate">' + esc(s.name) + '</div>' +
+        '<div class="text-[12px] text-slate-400 font-bold">' + esc(s.cls) + ' • ' + s.age + ' سنوات</div></div>' +
+        '<div class="text-center"><div class="text-2xl font-black ' + (s.avg >= 90 ? 'text-brand-600' : (s.avg >= 80 ? 'text-indigo-600' : 'text-amber-600')) + '">' + s.avg + '%</div>' +
+        '<div class="text-[10px] text-slate-400 font-black">المعدل</div></div>' +
+      '</div>' +
+      '<div class="grid grid-cols-3 gap-2 mt-4 text-center">' +
+        '<div class="bg-brand-50 rounded-xl py-2"><div class="font-black text-brand-700 text-sm">' + s.behavior + '</div><div class="text-[10px] text-slate-500 font-bold">السلوك</div></div>' +
+        '<div class="bg-indigo-50 rounded-xl py-2"><div class="font-black text-indigo-700 text-sm">' + s.attend + '%</div><div class="text-[10px] text-slate-500 font-bold">الحضور</div></div>' +
+        '<div class="bg-amber-50 rounded-xl py-2"><div class="font-black text-amber-700 text-sm">' + (trendUp ? 'صاعد' : 'متراجع') + '</div><div class="text-[10px] text-slate-500 font-bold">الاتجاه</div></div>' +
+      '</div>' +
+      '<div class="mt-4 h-2 rounded-full bg-slate-100 overflow-hidden"><div class="h-full rounded-full transition-all duration-700" style="width:' + s.avg + '%;background:linear-gradient(90deg,#10b981,#0ea5a0)"></div></div>' +
+    '</div>';
+  }).join('') || '<div class="text-center text-slate-400 font-bold py-10">لا توجد نتائج مطابقة</div>';
+}
+
+function openStudent(id){
+  const s = studentById(id);
+  if(!s) return;
+  const g = GRADES.filter(function(x){ return x.sid === id; });
+  const b = BEHAVIORS.filter(function(x){ return x.sid === id; });
+  const v = VIOLATIONS.filter(function(x){ return x.sid === id; });
+
+  $('studentDrawerBody').innerHTML =
+    '<div class="grad-bg text-white p-6 relative overflow-hidden">' +
+      '<div class="absolute inset-0 pattern"></div>' +
+      '<div class="relative flex items-start gap-4">' +
+        avatarHTML(s,'w-16 h-16 text-2xl') +
+        '<div class="flex-1"><div class="text-[12px] opacity-80">' + esc(s.id) + '</div>' +
+        '<div class="font-black text-xl">' + esc(s.name) + '</div>' +
+        '<div class="text-[12px] opacity-80">' + esc(s.cls) + ' • ولي الأمر: ' + esc(s.parent) + '</div></div>' +
+        '<button onclick="closeStudentDrawer()" class="w-9 h-9 rounded-xl bg-white/20 grid place-items-center"><i class="fa-solid fa-xmark"></i></button>' +
+      '</div>' +
+      '<div class="relative grid grid-cols-3 gap-2 mt-5 text-center text-[11px] font-black">' +
+        '<div class="bg-white/15 rounded-xl py-2.5"><div class="text-lg">' + s.avg + '%</div>المعدل</div>' +
+        '<div class="bg-white/15 rounded-xl py-2.5"><div class="text-lg">' + s.behavior + '</div>السلوك</div>' +
+        '<div class="bg-white/15 rounded-xl py-2.5"><div class="text-lg">' + s.attend + '%</div>الحضور</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="p-5 space-y-4">' +
+      '<div class="bg-white rounded-2xl border p-4">' +
+        '<h4 class="font-black text-sm mb-3"><i class="fa-solid fa-book-open text-brand-600 ms-1"></i> آخر العلامات</h4>' +
+        (g.length ? g.map(function(x){
+          const pct = Math.round(x.score / x.max * 100);
+          return '<div class="flex items-center gap-3 py-2 border-b last:border-0">' +
+            '<div class="flex-1"><div class="font-black text-[13px]">' + esc(x.subject) + '</div>' +
+            '<div class="text-[11px] text-slate-400 font-bold">' + esc(x.type) + ' • ' + esc(x.date) + '</div></div>' +
+            '<div class="text-left"><div class="font-black ' + (pct >= 85 ? 'text-brand-600' : (pct >= 70 ? 'text-amber-600' : 'text-red-500')) + '">' + x.score + '/' + x.max + '</div></div></div>';
+        }).join('') : '<div class="text-slate-400 text-sm font-bold">لا توجد علامات مسجلة</div>') +
+      '</div>' +
+
+      '<div class="bg-white rounded-2xl border p-4">' +
+        '<h4 class="font-black text-sm mb-3"><i class="fa-solid fa-heart text-amber-500 ms-1"></i> الملاحظات السلوكية</h4>' +
+        (b.length ? b.map(function(x){
+          return '<div class="flex gap-3 py-2 border-b last:border-0">' +
+            '<div class="w-8 h-8 rounded-xl ' + (x.type === 'positive' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600') + ' grid place-items-center shrink-0">' +
+            '<i class="fa-solid ' + (x.type === 'positive' ? 'fa-thumbs-up' : 'fa-lightbulb') + ' text-sm"></i></div>' +
+            '<div class="flex-1"><div class="font-black text-[13px]">' + esc(x.title) + '</div>' +
+            '<div class="text-[11px] text-slate-500 font-bold">' + esc(x.desc) + '</div>' +
+            '<div class="text-[10px] text-slate-400 font-bold mt-1">' + esc(x.date) + ' • ' + esc(x.by) + '</div></div>' +
+            '<div class="font-black text-[13px] ' + (x.points >= 0 ? 'text-green-600' : 'text-red-500') + '">' + (x.points >= 0 ? '+' : '') + x.points + '</div></div>';
+        }).join('') : '<div class="text-slate-400 text-sm font-bold">لا توجد ملاحظات</div>') +
+      '</div>' +
+
+      (v.length ?
+      '<div class="bg-white rounded-2xl border p-4">' +
+        '<h4 class="font-black text-sm mb-3"><i class="fa-solid fa-shield-halved text-red-500 ms-1"></i> سجل التجاوزات</h4>' +
+        v.map(function(x){
+          return '<div class="py-2 border-b last:border-0">' +
+            '<div class="flex items-center gap-2"><div class="font-black text-[13px] flex-1">' + esc(x.type) + '</div>' +
+            '<span class="text-[10px] font-black px-2 py-1 rounded-full ' + (x.severity === 'high' ? 'sev-high' : (x.severity === 'medium' ? 'sev-med' : 'sev-low')) + '">' +
+            (x.severity === 'high' ? 'عالية' : (x.severity === 'medium' ? 'متوسطة' : 'منخفضة')) + '</span></div>' +
+            '<div class="text-[11px] text-slate-500 font-bold mt-1">' + esc(x.desc) + '</div>' +
+            '<div class="text-[10px] text-slate-400 font-bold mt-1">الحالة: ' + esc(x.status) + '</div></div>';
+        }).join('') +
+      '</div>' : '') +
+
+      '<div class="grid grid-cols-2 gap-2">' +
+        '<button onclick="closeStudentDrawer();openModal(\'grade\',null,\'' + s.id + '\')" class="grad-btn text-white py-2.5 rounded-xl font-black text-sm">رصد درجة</button>' +
+        '<button onclick="closeStudentDrawer();switchView(\'messages\')" class="bg-ink-900 text-white py-2.5 rounded-xl font-black text-sm">مراسلة ولي الأمر</button>' +
+      '</div>' +
+    '</div>';
+
+  $('studentDrawer').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeStudentDrawer(){
+  $('studentDrawer').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+/* =========================================================
+   GRADES
+   ========================================================= */
+function renderGrades(){
+  const sf = $('gradeSubjectFilter') ? $('gradeSubjectFilter').value : '';
+  const stf = $('gradeStudentFilter') ? $('gradeStudentFilter').value : '';
+  const tf = $('gradeTypeFilter') ? $('gradeTypeFilter').value : '';
+
+  let list = GRADES.slice();
+  if(state.role === 'parent') list = list.filter(function(g){ return g.sid === state.parentChild; });
+  if(sf) list = list.filter(function(g){ return g.subject === sf; });
+  if(stf) list = list.filter(function(g){ return g.sid === stf; });
+  if(tf) list = list.filter(function(g){ return g.type === tf; });
+
+  $('gradesTable').innerHTML = list.map(function(g){
+    const s = studentById(g.sid);
+    const pct = Math.round(g.score / g.max * 100);
+    const cls = pct >= 85 ? 'bg-green-50 text-green-700' : (pct >= 70 ? 'bg-amber-50 text-amber-700' : 'bg-red-50 text-red-600');
+    return '<tr class="border-b hover:bg-slate-50 transition">' +
+      '<td class="p-3"><div class="flex items-center gap-2">' + avatarHTML(s,'w-8 h-8 text-xs') +
+      '<div><div class="font-black text-[13px]">' + esc(s.name) + '</div><div class="text-[10px] text-slate-400 font-bold">' + esc(g.teacher) + '</div></div></div></td>' +
+      '<td class="p-3 text-center font-bold text-slate-600 text-[13px]">' + esc(g.subject) + '</td>' +
+      '<td class="p-3 text-center"><span class="text-[11px] font-black bg-slate-100 px-2 py-1 rounded-full">' + esc(g.type) + '</span></td>' +
+      '<td class="p-3 text-center font-black">' + g.score + '/' + g.max + '</td>' +
+      '<td class="p-3 text-center text-slate-500 font-bold text-[12px]">' + esc(g.date) + '</td>' +
+      '<td class="p-3 text-center"><span class="text-[11px] font-black px-2 py-1 rounded-full ' + cls + '">' + (pct >= 85 ? 'ممتاز' : (pct >= 70 ? 'جيد' : 'يحتاج دعم')) + '</span></td>' +
+    '</tr>';
+  }).join('') || '<tr><td colspan="6" class="p-8 text-center text-slate-400 font-bold">لا توجد سجلات مطابقة</td></tr>';
+
+  const avgs = list.length ? avgArr(list.map(function(g){ return g.score / g.max * 100; })) : 0;
+  $('gradeAvgLabel').textContent = avgs.toFixed(1) + '%';
+
+  const perSubject = SUBJECTS.map(function(sub){
+    const arr = GRADES.filter(function(g){ return g.subject === sub; });
+    return arr.length ? avgArr(arr.map(function(g){ return g.score / g.max * 100; })) : 0;
+  });
+
+  mkChart('subjects','chSubjects',{
+    type:'bar',
+    data:{ labels:SUBJECTS, datasets:[{ data:perSubject.map(function(v){ return +v.toFixed(1); }), backgroundColor:['#10b981','#0ea5a0','#6366f1','#f59e0b','#f43f5e','#0ea5e9'], borderRadius:8, barThickness:22 }] },
+    options:{
+      responsive:true, maintainAspectRatio:false, indexAxis:'y',
+      plugins:{ legend:{display:false} },
+      scales:{ x:{ min:0, max:100, grid:GRID, ticks:TICK }, y:{ grid:{display:false}, ticks:TICK } }
+    }
+  });
+
+  const low = list.filter(function(g){ return g.score / g.max < 0.75; });
+  $('gradeSmartAlert').textContent = low.length
+    ? 'تم رصد ' + low.length + ' حالة تراجع في الدرجات. يُنصح بإرسال تنبيه فوري لأولياء الأمور وإعداد خطة دعم أسبوعية.'
+    : 'جميع الدرجات ضمن المستوى المتوقع. استمر على نفس خطة التقويم اليومي.';
+}
+
+function exportCSV(){
+  const rows = [['الطالب','المادة','النوع','الدرجة','الحد الأقصى','التاريخ','المعلم']];
+  GRADES.forEach(function(g){
+    const s = studentById(g.sid);
+    rows.push([s ? s.name : g.sid, g.subject, g.type, g.score, g.max, g.date, g.teacher]);
+  });
+  const csv = '\ufeff' + rows.map(function(r){ return r.map(function(c){ return '"' + String(c).replace(/"/g,'""') + '"'; }).join(','); }).join('\n');
+  try{
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'سجل-العلامات.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+  }catch(e){}
+  toast('تم التصدير','تم تنزيل سجل العلامات بصيغة CSV','success');
+}
+
+/* =========================================================
+   BEHAVIOR
+   ========================================================= */
+function setBehavFilter(f, btn){
+  state.behavFilter = f;
+  document.querySelectorAll('.behav-tab').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  renderBehavior();
+}
+
+function renderBehavior(){
+  const list = BEHAVIORS.filter(function(b){
+    return state.behavFilter === 'all' ? true : b.type === state.behavFilter;
+  });
+
+  $('behaviorFeed').innerHTML = list.map(function(b){
+    const s = studentById(b.sid);
+    const pos = b.type === 'positive';
+    return '<div class="bg-white rounded-2xl border shadow-card p-4 flex gap-3 card-hover">' +
+      avatarHTML(s,'w-11 h-11') +
+      '<div class="flex-1 min-w-0">' +
+        '<div class="flex items-center gap-2 flex-wrap">' +
+          '<div class="font-black text-[14px]">' + esc(s.name) + '</div>' +
+          (b.badge ? '<span class="text-[10px] font-black bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full"><i class="fa-solid fa-award ms-1"></i>' + esc(b.badge) + '</span>' : '') +
+          '<span class="text-[10px] font-black px-2 py-0.5 rounded-full ' + (pos ? 'bg-green-50 text-green-700' : 'bg-amber-50 text-amber-700') + '">' + (pos ? 'تعزيز إيجابي' : 'ملاحظة تحسينية') + '</span>' +
+        '</div>' +
+        '<div class="font-bold text-[13px] text-slate-700 mt-1">' + esc(b.title) + '</div>' +
+        '<div class="text-[12px] text-slate-500 leading-relaxed mt-1">' + esc(b.desc) + '</div>' +
+        '<div class="text-[10px] text-slate-400 font-bold mt-2">' + esc(b.date) + ' • بواسطة ' + esc(b.by) + '</div>' +
+      '</div>' +
+      '<div class="text-center shrink-0">' +
+        '<div class="w-11 h-11 rounded-2xl ' + (pos ? 'bg-green-50 text-green-600' : 'bg-amber-50 text-amber-600') + ' grid place-items-center font-black">' + (b.points >= 0 ? '+' : '') + b.points + '</div>' +
+        '<div class="text-[9px] text-slate-400 font-black mt-1">نقطة</div>' +
+      '</div>' +
+    '</div>';
+  }).join('') || '<div class="text-center text-slate-400 font-bold py-10 bg-white rounded-2xl border">لا توجد ملاحظات في هذا التصنيف</div>';
+
+  $('behavTotal').textContent = BEHAVIORS.length + ' ملاحظة';
+
+  const rank = STUDENTS.slice().sort(function(a,b){ return b.behavior - a.behavior; }).slice(0,6);
+  $('behaviorRanking').innerHTML = rank.map(function(s,i){
+    return '<div class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-50 transition cursor-pointer" onclick="openStudent(\'' + s.id + '\')">' +
+      '<div class="w-6 text-center font-black text-slate-400 text-sm">' + (i+1) + '</div>' +
+      avatarHTML(s,'w-9 h-9 text-xs') +
+      '<div class="flex-1 min-w-0"><div class="font-black text-[12px] truncate">' + esc(s.name) + '</div>' +
+      '<div class="h-1.5 rounded-full bg-slate-100 mt-1 overflow-hidden"><div class="h-full rounded-full transition-all duration-700" style="width:' + s.behavior + '%;background:linear-gradient(90deg,#fbbf24,#f59e0b)"></div></div></div>' +
+      '<div class="font-black text-[13px] text-amber-600">' + s.behavior + '</div></div>';
+  }).join('');
+
+  const star = rank[0];
+  if(star){
+    $('starAvatar').textContent = star.name.charAt(0);
+    $('starName').textContent = star.name;
+    $('starReason').textContent = 'أعلى نقاط سلوك هذا الأسبوع (' + star.behavior + ' نقطة)';
+    $('starAvatar').className = 'w-12 h-12 rounded-full ' + AVC[STUDENTS.indexOf(star) % AVC.length] + ' text-white grid place-items-center font-black text-lg';
+  }
+}
+
+/* =========================================================
+   VIOLATIONS
+   ========================================================= */
+function setViolFilter(f, btn){
+  state.violFilter = f;
+  document.querySelectorAll('.viol-tab').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  renderViolations();
+}
+
+function renderViolations(){
+  const list = VIOLATIONS.filter(function(v){
+    return state.violFilter === 'all' ? true : v.severity === state.violFilter;
+  });
+
+  $('violationsList').innerHTML = list.map(function(v){
+    const s = studentById(v.sid);
+    const sev = v.severity === 'high' ? ['sev-high','عالية','fa-circle-exclamation'] : (v.severity === 'medium' ? ['sev-med','متوسطة','fa-triangle-exclamation'] : ['sev-low','منخفضة','fa-circle-info']);
+    return '<div class="bg-white rounded-2xl border shadow-card overflow-hidden">' +
+      '<div class="p-4 flex flex-wrap items-start gap-3">' +
+        avatarHTML(s,'w-11 h-11') +
+        '<div class="flex-1 min-w-[200px]">' +
+          '<div class="flex items-center gap-2 flex-wrap">' +
+            '<div class="font-black text-[14px]">' + esc(v.type) + '</div>' +
+            '<span class="text-[10px] font-black px-2 py-1 rounded-full ' + sev[0] + '"><i class="fa-solid ' + sev[2] + ' ms-1"></i>' + sev[1] + '</span>' +
+            '<span class="text-[10px] font-black bg-slate-100 text-slate-600 px-2 py-1 rounded-full">' + esc(v.status) + '</span>' +
+          '</div>' +
+          '<div class="text-[12px] text-slate-500 font-bold mt-1">' + esc(s.name) + ' • ' + esc(v.date) + '</div>' +
+          '<div class="text-[13px] text-slate-600 leading-relaxed mt-2">' + esc(v.desc) + '</div>' +
+          '<div class="mt-2 text-[11px] font-black text-slate-500 bg-slate-50 rounded-xl p-2 inline-block"><i class="fa-solid fa-route text-brand-600 ms-1"></i> الإجراء: ' + esc(v.action) + '</div>' +
+        '</div>' +
+        '<div class="flex flex-col gap-2">' +
+          '<button onclick="toast(' + "'تم فتح المحادثة'" + ',' + "'تم تجهيز رسالة متابعة لولي الأمر'" + ',' + "'info'" + ')" class="text-[11px] font-black border px-3 py-2 rounded-xl hover:bg-brand-50 hover:border-brand-300 transition"><i class="fa-solid fa-comment-dots ms-1"></i> مراسلة الأهل</button>' +
+          '<button onclick="closeViolation(' + v.id + ')" class="text-[11px] font-black bg-green-600 text-white px-3 py-2 rounded-xl hover:bg-green-700 transition"><i class="fa-solid fa-check ms-1"></i> إغلاق الحالة</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('') || '<div class="text-center text-slate-400 font-bold py-10 bg-white rounded-2xl border">لا توجد حالات في هذا التصنيف</div>';
+
+  $('violTotal').textContent = VIOLATIONS.length;
+  $('violHigh').textContent = VIOLATIONS.filter(function(v){ return v.severity === 'high'; }).length;
+  $('violPending').textContent = VIOLATIONS.filter(function(v){ return v.status !== 'مغلق' && v.status !== 'تمت المعالجة'; }).length;
+  $('violResolved').textContent = VIOLATIONS.filter(function(v){ return v.status === 'مغلق' || v.status === 'تمت المعالجة'; }).length;
+}
+
+function closeViolation(id){
+  const v = VIOLATIONS.find(function(x){ return x.id === id; });
+  if(!v) return;
+  v.status = 'مغلق';
+  renderViolations();
+  renderDashboard();
+  toast('تم إغلاق الحالة','تم تحديث سجل التجاوزات وإشعار ولي الأمر','success');
+}
+
+/* =========================================================
+   ANALYTICS
+   ========================================================= */
+function renderAnalytics(){
+  const id = ($('analyticsStudent') && $('analyticsStudent').value) || 'ST-101';
+  const s = studentById(id) || STUDENTS[0];
+  $('radarName').textContent = s.name;
+
+  mkChart('radar','chRadar',{
+    type:'radar',
+    data:{
+      labels:SUBJECTS,
+      datasets:[
+        { label:s.name, data:s.radar, borderColor:'#10b981', backgroundColor:'rgba(16,185,129,.22)', pointBackgroundColor:'#10b981', borderWidth:2 },
+        { label:'أعلى درجة صفيّة', data:[98,97,95,96,99,94], borderColor:'#6366f1', backgroundColor:'rgba(99,102,241,.12)', pointBackgroundColor:'#6366f1', borderWidth:2 }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ position:'bottom', labels:{boxWidth:12, font:{size:10, weight:'bold'}} } },
+      scales:{ r:{ min:50, max:100, ticks:{ display:false }, grid:{color:'#e2e8f0'}, angleLines:{color:'#e2e8f0'}, pointLabels:{font:{size:10, weight:'bold'}} } }
+    }
+  });
+
+  mkChart('progress','chProgress',{
+    type:'line',
+    data:{
+      labels:['أ1','أ2','أ3','أ4','أ5','أ6'],
+      datasets:[
+        { label:'متوسط الصف', data:[82,83.5,84,85.5,86,87.4], borderColor:'#cbd5e1', backgroundColor:'rgba(203,213,225,.2)', fill:true, tension:.45, borderWidth:2, pointRadius:3 },
+        { label:s.name, data:s.trend, borderColor:'#4f46e5', backgroundColor:'rgba(79,70,229,.15)', fill:true, tension:.45, borderWidth:3, pointRadius:4 }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ position:'bottom', labels:{boxWidth:12, font:{size:10, weight:'bold'}} } },
+      scales:{ y:{ min:60, max:100, grid:GRID, ticks:TICK }, x:{ grid:{display:false}, ticks:TICK } }
+    }
+  });
+
+  mkChart('scatter','chScatter',{
+    type:'scatter',
+    data:{
+      datasets:[{
+        label:'الطلاب',
+        data:STUDENTS.map(function(x){ return {x:x.attend, y:x.avg}; }),
+        backgroundColor:'rgba(16,185,129,.65)',
+        borderColor:'#0f8756',
+        pointRadius:7,
+        pointHoverRadius:10
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false} },
+      scales:{
+        x:{ title:{display:true, text:'نسبة الحضور %', font:{size:10, weight:'bold'}}, min:80, max:102, grid:GRID, ticks:TICK },
+        y:{ title:{display:true, text:'المعدل %', font:{size:10, weight:'bold'}}, min:65, max:100, grid:GRID, ticks:TICK }
+      }
+    }
+  });
+
+  mkChart('barCompare','chBarCompare',{
+    type:'bar',
+    data:{
+      labels:STUDENTS.map(function(x){ return x.name.split(' ')[0]; }),
+      datasets:[
+        { label:'المعدل الأكاديمي', data:STUDENTS.map(function(x){ return x.avg; }), backgroundColor:'#10b981', borderRadius:6 },
+        { label:'نقاط السلوك', data:STUDENTS.map(function(x){ return x.behavior; }), backgroundColor:'#f59e0b', borderRadius:6 }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ position:'bottom', labels:{boxWidth:12, font:{size:10, weight:'bold'}} } },
+      scales:{ y:{ min:50, max:100, grid:GRID, ticks:TICK }, x:{ grid:{display:false}, ticks:TICK } }
+    }
+  });
+
+  const diff = s.trend[s.trend.length-1] - s.trend[0];
+  const insights = [];
+  if(diff > 3) insights.push(['fa-arrow-trend-up','green','اتجاه صاعد: تحسن المعدل بمقدار ' + diff.toFixed(0) + ' نقاط خلال 6 أسابيع.']);
+  else if(diff < -2) insights.push(['fa-arrow-trend-down','red','تراجع ملحوظ: انخفض المعدل بمقدار ' + Math.abs(diff).toFixed(0) + ' نقاط — يُنصح بتدخل مبكر.']);
+  else insights.push(['fa-minus','amber','أداء مستقر مع تذبذب بسيط، يحتاج متابعة أسبوعية.']);
+
+  if(s.behavior < 80) insights.push(['fa-heart','amber','نقاط السلوك دون المستهدف (80). اقترح خطة تحفيزية يومية مع ولي الأمر.']);
+  else insights.push(['fa-heart','green','مستوى سلوكي ممتاز — يمكن اعتماد الطالب ضمن فريق القادة الصفّي.']);
+
+  if(s.attend < 92) insights.push(['fa-calendar-xmark','red','معدل الحضور ' + s.attend + '% — التأخير يؤثر مباشرة على التحصيل.']);
+  else insights.push(['fa-calendar-check','green','التزام حضوري عالي (' + s.attend + '%) يدعم استمرارية التعلم.']);
+
+  const weakest = s.radar.indexOf(Math.min.apply(null, s.radar));
+  insights.push(['fa-book','indigo','أضعف مادة: ' + SUBJECTS[weakest] + ' (' + s.radar[weakest] + '%). يُوصى بجلسات دعم قصيرة مركّزة.']);
+
+  $('aiInsights').innerHTML = insights.map(function(x){
+    return '<div class="flex gap-2.5 bg-white/10 rounded-xl p-2.5">' +
+      '<i class="fa-solid ' + x[0] + ' text-' + x[1] + '-300 mt-1"></i><div>' + x[2] + '</div></div>';
+  }).join('');
+}
+
+/* =========================================================
+   ATTENDANCE
+   ========================================================= */
+function renderAttendance(){
+  const label = {present:['حاضر','bg-green-50 text-green-700 border-green-200','fa-circle-check'], late:['متأخر','bg-amber-50 text-amber-700 border-amber-200','fa-clock'], absent:['غائب','bg-red-50 text-red-600 border-red-200','fa-circle-xmark']};
+
+  $('attendanceList').innerHTML = STUDENTS.map(function(s){
+    const st = state.attendToday[s.id] || 'present';
+    const l = label[st];
+    return '<div class="flex items-center gap-3 p-3 rounded-2xl border hover:shadow-card transition">' +
+      avatarHTML(s,'w-10 h-10 text-sm') +
+      '<div class="flex-1 min-w-0"><div class="font-black text-[13px] truncate">' + esc(s.name) + '</div>' +
+      '<div class="text-[11px] text-slate-400 font-bold">' + esc(s.id) + ' • ' + esc(s.cls) + '</div></div>' +
+      '<button onclick="cycleAttend(\'' + s.id + '\')" class="att-day text-[11px] font-black px-3 py-2 rounded-xl border ' + l[1] + ' transition">' +
+      '<i class="fa-solid ' + l[2] + ' ms-1"></i> ' + l[0] + '</button></div>';
+  }).join('');
+
+  const counts = {present:0, late:0, absent:0};
+  STUDENTS.forEach(function(s){ counts[state.attendToday[s.id] || 'present']++; });
+  $('attSummary').textContent = 'حاضر ' + counts.present + ' • متأخر ' + counts.late + ' • غائب ' + counts.absent;
+
+  mkChart('attend','chAttend',{
+    type:'bar',
+    data:{
+      labels:['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس'],
+      datasets:[{ label:'نسبة الحضور %', data:[96,98,94,97,99], backgroundColor:['#10b981','#0ea5a0','#6366f1','#f59e0b','#0ea5e9'], borderRadius:8, barThickness:26 }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false} },
+      scales:{ y:{ min:85, max:100, grid:GRID, ticks:TICK }, x:{ grid:{display:false}, ticks:TICK } }
+    }
+  });
+
+  const abs = STUDENTS.filter(function(s){ return s.attend < 92; });
+  $('absenceAlerts').innerHTML = abs.length ? abs.map(function(s){
+    return '<div class="flex items-start gap-2 bg-red-50 border border-red-100 rounded-xl p-2.5">' +
+      '<i class="fa-solid fa-triangle-exclamation text-red-500 mt-0.5"></i>' +
+      '<div><div class="text-red-600 text-[12px] font-black">' + esc(s.name) + '</div>' +
+      '<div class="text-[11px] text-slate-500 font-bold">نسبة الحضور ' + s.attend + '% — يحتاج متابعة</div></div></div>';
+  }).join('') : '<div class="text-slate-400 text-[12px] font-bold">لا توجد تنبيهات غياب حالياً.</div>';
+}
+
+function cycleAttend(id){
+  const order = ['present','late','absent'];
+  const cur = state.attendToday[id] || 'present';
+  state.attendToday[id] = order[(order.indexOf(cur) + 1) % order.length];
+  renderAttendance();
+  const s = studentById(id);
+  const txt = {present:'حاضر', late:'متأخر', absent:'غائب'}[state.attendToday[id]];
+  if(!queueOrSend('حضور ' + id)){
+    toast('حُفظ في الانتظار','سيتم إرسال تحديث الحضور عند عودة الاتصال','warn');
+    return;
+  }
+  toast('تم تحديث الحضور', s.name + ': ' + txt, 'info');
+}
+
+function markAllPresent(){
+  STUDENTS.forEach(function(s){ state.attendToday[s.id] = 'present'; });
+  renderAttendance();
+  if(!queueOrSend('تحضير الصف')){
+    toast('حُفظ في الانتظار','سيتم إرسال التحضير عند عودة الاتصال','warn');
+    return;
+  }
+  pushNotif('اكتمل تحضير الصف','تم تسجيل حضور جميع طلاب الثالث (أ) بنجاح','info');
+}
+
+/* =========================================================
+   MESSAGES
+   ========================================================= */
+function renderConvs(){
+  $('convList').innerHTML = CONVS.map(function(c){
+    const s = studentById(c.sid);
+    return '<div onclick="selectConv(\'' + c.id + '\')" class="flex items-center gap-3 p-3 rounded-2xl cursor-pointer transition ' + (state.activeConv === c.id ? 'bg-brand-50 border border-brand-200' : 'hover:bg-slate-50 border border-transparent') + '">' +
+      avatarHTML(s,'w-11 h-11') +
+      '<div class="flex-1 min-w-0"><div class="font-black text-[13px] truncate">' + esc(c.name) + '</div>' +
+      '<div class="text-[11px] text-slate-400 font-bold truncate">' + esc(c.msgs[c.msgs.length-1].text) + '</div></div>' +
+      (c.unread ? '<span class="w-5 h-5 rounded-full bg-brand-500 text-white text-[10px] font-black grid place-items-center shrink-0">' + c.unread + '</span>' : '') +
+    '</div>';
+  }).join('');
+  const totalUnread = CONVS.reduce(function(a,c){ return a + c.unread; }, 0);
+  const badge = $('navMsgBadge');
+  badge.textContent = totalUnread;
+  badge.style.display = totalUnread ? 'inline-block' : 'none';
+}
+
+function selectConv(id){
+  state.activeConv = id;
+  const c = CONVS.find(function(x){ return x.id === id; });
+  if(!c) return;
+  c.unread = 0;
+  renderConvs();
+  renderChat();
+}
+
+function renderChat(){
+  const c = CONVS.find(function(x){ return x.id === state.activeConv; }) || CONVS[0];
+  if(!c) return;
+  const s = studentById(c.sid);
+
+  $('chatName').textContent = c.name;
+  $('chatStatus').innerHTML = c.online ? '<span class="text-green-600">● متصل الآن</span>' : '<span class="text-slate-400">● غير متصل</span>';
+  $('chatAvatar').textContent = c.name.charAt(0);
+  $('chatAvatar').className = 'w-11 h-11 rounded-full ' + (AVC[STUDENTS.indexOf(s) % AVC.length]) + ' text-white grid place-items-center font-black';
+
+  $('chatBody').innerHTML = c.msgs.map(function(m){
+    const isT = m.from === 'teacher';
+    return '<div class="flex ' + (isT ? 'justify-start' : 'justify-end') + '">' +
+      '<div class="max-w-[75%] ' + (isT ? 'chat-bubble-teacher' : 'chat-bubble-parent') + ' p-3.5 shadow-sm">' +
+      '<div class="text-[13px] leading-relaxed">' + esc(m.text) + '</div>' +
+      '<div class="text-[10px] mt-1.5 font-bold ' + (isT ? 'text-white/50' : 'text-slate-400') + '">' + esc(m.time) + '</div></div></div>';
+  }).join('');
+
+  const body = $('chatBody');
+  body.scrollTop = body.scrollHeight;
+}
+
+function renderQuick(){
+  $('quickReplies').innerHTML = QUICK.map(function(q){
+    return '<button onclick="quickSend(\'' + q + '\')" class="whitespace-nowrap text-[11px] font-black bg-slate-100 hover:bg-brand-100 px-3 py-1.5 rounded-full transition">' + q + '</button>';
+  }).join('');
+}
+
+function quickSend(t){
+  $('chatInput').value = t;
+  sendMessage();
+}
+
+function sendMessage(){
+  const inp = $('chatInput');
+  const val = (inp.value || '').trim();
+  if(!val) return;
+  const c = CONVS.find(function(x){ return x.id === state.activeConv; });
+  if(!c) return;
+
+  if(!queueOrSend('رسالة')){
+    c.msgs.push({from:'teacher', text:val, time:nowTime() + ' (بانتظار الإرسال)'});
+    inp.value = '';
+    renderChat();
+    toast('بانتظار الاتصال','تم حفظ رسالتك وستُرسل عند عودة الإنترنت','warn');
+    return;
+  }
+
+  c.msgs.push({from:'teacher', text:val, time:nowTime()});
+  inp.value = '';
+  renderChat();
+  renderConvs();
+  toast('تم الإرسال','وصلت رسالتك لولي الأمر عبر المزامنة الفورية','success');
+
+  setTimeout(function(){
+    const replies = ['شكراً جزيلاً للمتابعة','تم، سأعمل على ذلك','ممتاز، بارك الله فيك','سأعود لكم بالنتيجة هذا الأسبوع'];
+    c.msgs.push({from:'parent', text:replies[Math.floor(Math.random()*replies.length)], time:nowTime()});
+    if(state.view === 'messages') renderChat();
+    renderConvs();
+  }, 1800);
+}
+
+function filterConvs(q){
+  q = (q || '').trim();
+  document.querySelectorAll('#convList > div').forEach(function(el, i){
+    const c = CONVS[i];
+    if(!c) return;
+    el.style.display = (!q || c.name.indexOf(q) !== -1) ? 'flex' : 'none';
+  });
+}
+
+/* =========================================================
+   REPORTS
+   ========================================================= */
+function buildReport(){
+  const sid = ($('reportStudent') && $('reportStudent').value) || 'ST-101';
+  const s = studentById(sid) || STUDENTS[0];
+  const period = ($('reportPeriod') && $('reportPeriod').value) || 'التقرير الأسبوعي';
+  const chks = {};
+  document.querySelectorAll('.repChk').forEach(function(c){ chks[c.dataset.k] = c.checked; });
+
+  const g = GRADES.filter(function(x){ return x.sid === sid; });
+  const b = BEHAVIORS.filter(function(x){ return x.sid === sid; });
+
+  let html =
+    '<div class="grad-bg text-white p-6 relative overflow-hidden">' +
+      '<div class="absolute inset-0 pattern"></div>' +
+      '<div class="relative flex items-center justify-between flex-wrap gap-3">' +
+        '<div><div class="text-[12px] opacity-80">' + esc(period) + '</div>' +
+        '<div class="text-2xl font-black mt-1">تقرير الطالب: ' + esc(s.name) + '</div>' +
+        '<div class="text-[12px] opacity-80 mt-1">' + esc(s.cls) + ' • رقم الطالب: ' + esc(s.id) + ' • ولي الأمر: ' + esc(s.parent) + '</div></div>' +
+        '<div class="text-left"><div class="text-[11px] opacity-80">تاريخ الإصدار</div><div class="font-black">' + todayStr() + '</div>' +
+        '<div class="text-[11px] opacity-80 mt-1">إعداد: عماد العلي — مستقبلهم</div></div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="p-6">' +
+      '<div class="grid grid-cols-3 gap-3">' +
+        '<div class="bg-brand-50 rounded-2xl p-4 text-center"><div class="text-2xl font-black text-brand-700">' + s.avg + '%</div><div class="text-[11px] font-bold text-slate-500">المعدل العام</div></div>' +
+        '<div class="bg-amber-50 rounded-2xl p-4 text-center"><div class="text-2xl font-black text-amber-700">' + s.behavior + '</div><div class="text-[11px] font-bold text-slate-500">نقاط السلوك</div></div>' +
+        '<div class="bg-indigo-50 rounded-2xl p-4 text-center"><div class="text-2xl font-black text-indigo-700">' + s.attend + '%</div><div class="text-[11px] font-bold text-slate-500">نسبة الحضور</div></div>' +
+      '</div>';
+
+  if(chks.grades !== false){
+    html += '<h4 class="font-black mt-6 mb-2"><i class="fa-solid fa-book-open text-brand-600 ms-1"></i> سجل العلامات</h4>' +
+      '<table class="w-full text-[13px]"><thead><tr class="bg-slate-50 text-slate-500 text-[11px]">' +
+      '<th class="p-2 text-right font-black">المادة</th><th class="p-2 font-black">النوع</th><th class="p-2 font-black">الدرجة</th><th class="p-2 font-black">التاريخ</th></tr></thead><tbody>' +
+      (g.length ? g.map(function(x){
+        return '<tr class="border-b"><td class="p-2 font-bold">' + esc(x.subject) + '</td><td class="p-2 text-center text-slate-500">' + esc(x.type) + '</td>' +
+        '<td class="p-2 text-center font-black">' + x.score + '/' + x.max + '</td><td class="p-2 text-center text-slate-500">' + esc(x.date) + '</td></tr>';
+      }).join('') : '<tr><td colspan="4" class="p-4 text-center text-slate-400 font-bold">لا توجد بيانات</td></tr>') +
+      '</tbody></table>';
+  }
+
+  if(chks.behavior !== false){
+    html += '<h4 class="font-black mt-6 mb-2"><i class="fa-solid fa-heart text-amber-500 ms-1"></i> السلوك والنقاط</h4>' +
+      '<div class="space-y-2">' +
+      (b.length ? b.map(function(x){
+        return '<div class="flex items-start gap-2 bg-slate-50 rounded-xl p-3">' +
+          '<i class="fa-solid ' + (x.type === 'positive' ? 'fa-thumbs-up text-green-600' : 'fa-lightbulb text-amber-600') + ' mt-0.5"></i>' +
+          '<div class="flex-1"><div class="font-black text-[13px]">' + esc(x.title) + '</div>' +
+          '<div class="text-[11px] text-slate-500 font-bold">' + esc(x.desc) + '</div></div>' +
+          '<div class="font-black text-[13px] ' + (x.points >= 0 ? 'text-green-600' : 'text-red-500') + '">' + (x.points >= 0 ? '+' : '') + x.points + '</div></div>';
+      }).join('') : '<div class="text-slate-400 text-sm font-bold">لا توجد ملاحظات</div>') +
+      '</div>';
+  }
+
+  if(chks.attend !== false){
+    html += '<h4 class="font-black mt-6 mb-2"><i class="fa-solid fa-calendar-check text-indigo-600 ms-1"></i> الحضور</h4>' +
+      '<div class="flex items-center gap-4 bg-indigo-50 rounded-2xl p-4">' +
+      '<div class="w-16 h-16 rounded-full bg-white grid place-items-center font-black text-indigo-700 text-xl shadow-inner">' + s.attend + '%</div>' +
+      '<div class="text-[13px] font-bold text-slate-600 leading-relaxed">سجل الحضور منتظم خلال الفترة. ' +
+      (s.attend >= 95 ? 'التزام ممتاز يعكس انتظام الطالب.' : 'يوجد مجال لتحسين الالتزام بالمواعيد الصباحية.') + '</div></div>';
+  }
+
+  if(chks.reco !== false){
+    html += '<h4 class="font-black mt-6 mb-2"><i class="fa-solid fa-lightbulb text-brand-600 ms-1"></i> التوصيات التربوية</h4>' +
+      '<ul class="space-y-2 text-[13px] font-bold text-slate-600">' +
+      '<li class="flex gap-2"><i class="fa-solid fa-check text-brand-500 mt-1"></i> الاستمرار على خطة المتابعة اليومية للواجبات المنزلية.</li>' +
+      '<li class="flex gap-2"><i class="fa-solid fa-check text-brand-500 mt-1"></i> تخصيص 15 دقيقة قراءة يومية لتعزيز الطلاقة اللغوية.</li>' +
+      '<li class="flex gap-2"><i class="fa-solid fa-check text-brand-500 mt-1"></i> التواصل الأسبوعي مع المعلم عبر تطبيق «مستقبلهم».</li>' +
+      '<li class="flex gap-2"><i class="fa-solid fa-check text-brand-500 mt-1"></i> تعزيز النقاط الإيجابية بمكافأة بسيطة عند بلوغ الهدف الأسبوعي.</li>' +
+      '</ul>';
+  }
+
+  html += '<div class="mt-8 pt-4 border-t flex justify-between items-center text-[11px] font-bold text-slate-400">' +
+    '<div>توقيع المعلم: أ. سالم القحطاني</div><div>ختم المدرسة — ابتدائية النخبة النموذجية</div></div></div>';
+
+  $('reportPreview').innerHTML = html;
+  $('printReport').innerHTML = '<div style="direction:rtl">' + html + '</div>';
+}
+
+function shareReport(){
+  toast('تم الإرسال','تمت مشاركة التقرير مع ولي الأمر عبر التطبيق','success');
+  pushNotif('تقرير جديد جاهز','تم إرسال التقرير الأسبوعي لولي الأمر — يمكن تحميله الآن','info');
+}
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+function studentOptions(sel){
+  return STUDENTS.map(function(s){
+    return '<option value="' + s.id + '"' + (s.id === sel ? ' selected' : '') + '>' + esc(s.name) + '</option>';
+  }).join('');
+}
+
+function openModal(type, preset, forcedSid){
+  const sid = forcedSid || (state.role === 'parent' ? state.parentChild : 'ST-101');
+  let title = '', body = '';
+
+  if(type === 'grade'){
+    title = '<i class="fa-solid fa-book-open text-brand-600"></i> رصد درجة جديدة';
+    body =
+      '<div class="p-6 space-y-4">' +
+        '<div><label class="text-[12px] font-black text-slate-500">الطالب</label>' +
+        '<select id="mStudent" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1">' + studentOptions(sid) + '</select></div>' +
+        '<div class="grid grid-cols-2 gap-3">' +
+          '<div><label class="text-[12px] font-black text-slate-500">المادة</label>' +
+          '<select id="mSubject" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1">' +
+          SUBJECTS.map(function(s){ return '<option>' + s + '</option>'; }).join('') + '</select></div>' +
+          '<div><label class="text-[12px] font-black text-slate-500">نوع التقييم</label>' +
+          '<select id="mType" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1">' +
+          ['اختبار قصير','واجب','مشاركة','اختبار فصلي','نشاط'].map(function(t){ return '<option>' + t + '</option>'; }).join('') + '</select></div>' +
+        '</div>' +
+        '<div class="grid grid-cols-2 gap-3">' +
+          '<div><label class="text-[12px] font-black text-slate-500">الدرجة</label>' +
+          '<input id="mScore" type="number" value="9" min="0" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1"></div>' +
+          '<div><label class="text-[12px] font-black text-slate-500">الحد الأقصى</label>' +
+          '<input id="mMax" type="number" value="10" min="1" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1"></div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  if(type === 'behavior'){
+    const isPos = preset !== 'negative';
+    title = isPos ? '<i class="fa-solid fa-thumbs-up text-green-600"></i> تعزيز إيجابي' : '<i class="fa-solid fa-lightbulb text-amber-600"></i> ملاحظة تحسينية';
+    body =
+      '<div class="p-6 space-y-4">' +
+        '<div><label class="text-[12px] font-black text-slate-500">الطالب</label>' +
+        '<select id="mStudent" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1">' + studentOptions(sid) + '</select></div>' +
+        '<div><label class="text-[12px] font-black text-slate-500">عنوان الملاحظة</label>' +
+        '<input id="mTitle" value="' + (isPos ? 'مشاركة متميزة داخل الصف' : 'ملاحظة تحسينية تحتاج متابعة') + '" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1"></div>' +
+        '<div><label class="text-[12px] font-black text-slate-500">التفاصيل والتوصية</label>' +
+        '<textarea id="mDesc" rows="3" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1">سُجلت الملاحظة ضمن المتابعة اليومية، وتم إشعار ولي الأمر فوراً.</textarea></div>' +
+        '<div class="grid grid-cols-2 gap-3">' +
+          '<div><label class="text-[12px] font-black text-slate-500">النقاط</label>' +
+          '<input id="mPoints" type="number" value="' + (isPos ? '5' : '-2') + '" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1"></div>' +
+          '<div><label class="text-[12px] font-black text-slate-500">الشارة (اختياري)</label>' +
+          '<input id="mBadge" value="' + (isPos ? 'نجم اليوم' : '') + '" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1"></div>' +
+        '</div>' +
+        '<input type="hidden" id="mBehavType" value="' + (isPos ? 'positive' : 'negative') + '">' +
+      '</div>';
+  }
+
+  if(type === 'violation'){
+    title = '<i class="fa-solid fa-shield-halved text-red-600"></i> توثيق تجاوز جديد';
+    body =
+      '<div class="p-6 space-y-4">' +
+        '<div><label class="text-[12px] font-black text-slate-500">الطالب</label>' +
+        '<select id="mStudent" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1">' + studentOptions(sid) + '</select></div>' +
+        '<div><label class="text-[12px] font-black text-slate-500">نوع التجاوز</label>' +
+        '<input id="mTitle" value="إزعاج داخل الحصة" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1"></div>' +
+        '<div><label class="text-[12px] font-black text-slate-500">الوصف التفصيلي</label>' +
+        '<textarea id="mDesc" rows="3" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1">تم تنبيه الطالب أكثر من مرة، وسُجلت الملاحظة وفق السياسة المدرسية.</textarea></div>' +
+        '<div class="grid grid-cols-2 gap-3">' +
+          '<div><label class="text-[12px] font-black text-slate-500">درجة الخطورة</label>' +
+          '<select id="mSeverity" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1">' +
+          '<option value="low">منخفضة</option><option value="medium" selected>متوسطة</option><option value="high">عالية</option></select></div>' +
+          '<div><label class="text-[12px] font-black text-slate-500">الإجراء المتخذ</label>' +
+          '<input id="mAction" value="تنبيه + إشعار ولي الأمر" class="w-full border rounded-xl px-4 py-2.5 text-sm font-bold mt-1"></div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  $('modalBox').innerHTML =
+    '<div class="p-5 border-b flex items-center justify-between bg-slate-50">' +
+      '<h3 class="font-black text-lg">' + title + '</h3>' +
+      '<button onclick="closeModal()" class="w-9 h-9 rounded-xl bg-white border grid place-items-center hover:bg-red-50 hover:text-red-500 transition"><i class="fa-solid fa-xmark"></i></button>' +
+    '</div>' + body +
+    '<div class="p-5 border-t flex gap-2">' +
+      '<button onclick="submitModal(\'' + type + '\')" class="grad-btn text-white flex-1 py-3 rounded-xl font-black text-sm"><i class="fa-solid fa-paper-plane ms-1"></i> حفظ وإرسال فوري</button>' +
+      '<button onclick="closeModal()" class="px-6 py-3 rounded-xl border font-black text-sm text-slate-500 hover:bg-slate-50 transition">إلغاء</button>' +
+    '</div>';
+
+  $('modalOverlay').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  $('modalOverlay').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function submitModal(type){
+  const sid = $('mStudent') ? $('mStudent').value : 'ST-101';
+  const s = studentById(sid);
+  const willSend = queueOrSend(type);
+
+  if(type === 'grade'){
+    const sc = parseFloat($('mScore').value || '0');
+    const mx = parseFloat($('mMax').value || '10');
+    GRADES.unshift({
+      id:Date.now(), sid:sid, subject:$('mSubject').value, type:$('mType').value,
+      score:sc, max:mx, date:'اليوم ' + nowTime(), teacher:'أ. سالم'
+    });
+    if(willSend){
+      pushNotif('درجة جديدة — ' + s.name, 'حصل على ' + sc + '/' + mx + ' في ' + $('mSubject').value, 'grade');
+    }
+  }
+
+  if(type === 'behavior'){
+    const isPos = $('mBehavType').value === 'positive';
+    const pts = parseInt($('mPoints').value || '0', 10);
+    BEHAVIORS.unshift({
+      id:Date.now(), sid:sid, type:isPos ? 'positive' : 'negative',
+      title:$('mTitle').value, desc:$('mDesc').value,
+      points:pts, date:'اليوم ' + nowTime(), by:'أ. سالم',
+      badge:$('mBadge').value || null
+    });
+    if(willSend){
+      pushNotif((isPos ? 'تعزيز إيجابي — ' : 'ملاحظة تحسينية — ') + s.name, $('mTitle').value + ' (' + (pts >= 0 ? '+' : '') + pts + ' نقاط)', isPos ? 'behavior' : 'warn');
+    }
+  }
+
+  if(type === 'violation'){
+    VIOLATIONS.unshift({
+      id:Date.now(), sid:sid, type:$('mTitle').value, severity:$('mSeverity').value,
+      desc:$('mDesc').value, date:'اليوم ' + nowTime(), status:'قيد المراجعة', action:$('mAction').value
+    });
+    if(willSend){
+      pushNotif('توثيق تجاوز — ' + s.name, $('mTitle').value + ' — بانتظار متابعة ولي الأمر', 'warn');
+    }
+  }
+
+  closeModal();
+  renderAll();
+
+  if(!willSend){
+    toast('حُفظ في الانتظار','سيتم إرسال التحديث عند عودة الاتصال','warn');
+  }
+}
+
+/* =========================================================
+   GLOBAL KEY
+   ========================================================= */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    closeModal();
+    closeStudentDrawer();
+    toggleNotifDrawer(false);
+  }
+});
+
+/* initial landing render safety */
+renderNotifs();
+</script>
+</body>
+</html>
